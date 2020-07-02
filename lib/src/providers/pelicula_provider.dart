@@ -32,14 +32,15 @@ class PeliculaProvider {
 
     final url = Uri.https(
         _domain, _resource, {'api_key': _apiKey, 'language': _language});
+    print('getEnCines() Ejecutada !!!');
+
     return await this._httpGet(url);
   }
 
   Future<List<Pelicula>> getPopulares() async {
     String _resource = '3/movie/popular';
+    //if (_cargando) return [];
 
-    if (_cargando) return [];
-    print('Cargando !!');
     _cargando = true;
 
     _popularesPage++;
@@ -51,6 +52,7 @@ class PeliculaProvider {
     });
     //
     final resp = await this._httpGet(url);
+    print('getPopulares( ) Ejecutada !!!');
 
     _populares.addAll(resp);
 

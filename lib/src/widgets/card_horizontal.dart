@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/models/pelicula_model.dart';
+import 'package:heron_delivery/src/utils/color_util.dart' as color;
 
 class CardHorizontal extends StatelessWidget {
   final List<Pelicula> peliculas;
-  final _pageController =
-      new PageController(initialPage: 1, viewportFraction: 0.3);
+  final _scrollController = new ScrollController();
 
   final Function siguientePagina;
 
@@ -13,34 +13,38 @@ class CardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //informacion sobre propiedades del dispositivo
-    final _screenSize = MediaQuery.of(context).size;
 
-    _pageController.addListener(() {
-      if (_pageController.position.pixels >=
-          _pageController.position.maxScrollExtent - 200) {
+    final _screenSize = MediaQuery.of(context).size;
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
         siguientePagina(); //ejecuto getPopulares del provider
       }
     });
 
-    return Container(
-      height: _screenSize.height * 0.25,
-      child: PageView.builder(
-        pageSnapping: false,
-        controller: _pageController,
-        itemBuilder: (context, i) {
-          return _tarjeta(context, peliculas[i]);
-        },
-        itemCount: peliculas.length,
-        //children: _tarjetas( context ),
-      ),
+    void disponse() {
+      _scrollController.dispose();
+    }
+
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      controller: _scrollController,
+      physics: ClampingScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: peliculas.length,
+      itemBuilder: (context, i) {
+        return _tarjeta(context, peliculas[i]);
+      },
     );
   }
 
   Widget _tarjeta(BuildContext context, Pelicula pelicula) {
     pelicula.uniqueId = '${pelicula.id}-poster';
-
     final tarjeta = Container(
-      margin: EdgeInsets.only(right: 15.0),
+      height: 200.0,
+      width: 100.0,
+      margin: EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
         children: <Widget>[
           Hero(
@@ -51,14 +55,13 @@ class CardHorizontal extends StatelessWidget {
                 placeholder: AssetImage('assets/img/no-image.jpg'),
                 image: NetworkImage(pelicula.getPosterImg()),
                 fit: BoxFit.cover,
-                height: 130.0,
               ),
             ),
           ),
           Text(
             pelicula.title,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption,
+            style: TextStyle(color: color.getColorGrisRGBO()),
           )
         ],
       ),

@@ -19,6 +19,8 @@ class CardSwiper extends StatelessWidget {
       width: double.infinity,
       height: 200.0,
       child: Swiper(
+        autoplay: true,
+        curve: Curves.easeInOut,
         pagination: new SwiperPagination(),
         control: new SwiperControl(),
         //itemWidth: _screenSize.width * 1,

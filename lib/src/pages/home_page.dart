@@ -1,15 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/providers/pelicula_provider.dart';
 import 'package:heron_delivery/src/search/search_delegate.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
 import 'package:heron_delivery/src/utils/font_util.dart' as font;
 import 'package:heron_delivery/src/widgets/card_horizontal.dart';
+import 'package:heron_delivery/src/widgets/card_page_view.dart';
 import 'package:heron_delivery/src/widgets/card_swiper.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  final peliculaProvider = PeliculaProvider();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -17,28 +16,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  String _sector = 'Tejerias';
-  String _ciudad = 'Samborondon';
-
-  final peliculaProvider = PeliculaProvider();
+  final _sector = 'Tejerias';
+  final _ciudad = 'Samborondon';
 
   @override
   Widget build(BuildContext context) {
-    peliculaProvider.getPopulares();
+    //peliculaProvider.getPopulares();
+
     return Scaffold(
-        appBar: _appBar(),
-        body: _scrollBody(context),
+        appBar: _appBar(context),
+        body: _singleChildScrollView(context),
         bottomNavigationBar: _bottonNavigationBar(context));
   }
 
-  PreferredSizeWidget _appBar() {
+  PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
         centerTitle: true,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0),
           icon: Icon(
             Icons.account_circle,
-            size: 40.0,
+            size: 35.0,
             color: color.getColorBlueHex(),
           ),
           onPressed: () {},
@@ -53,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(
                     Icons.local_grocery_store,
                     color: color.getColorBlueRGBO(),
-                    size: 40.0,
+                    size: 30.0,
                   ),
                   onPressed: () {
                     showSearch(
@@ -97,11 +95,11 @@ class _HomePageState extends State<HomePage> {
     });
     switch (index) {
       case 3:
-        showSearch(
-          context: context,
-          delegate: DataSearch(),
-          query: null,
-        );
+        //showSearch(
+        //  context: context,
+        //  delegate: DataSearch(),
+        //  query: null,
+        //);
         break;
       default:
     }
@@ -109,6 +107,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _bottonNavigationBar(BuildContext context) {
     return BottomNavigationBar(
+        iconSize: 20.0,
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
@@ -134,7 +133,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _swiperTarjetas() {
     return FutureBuilder(
-      future: peliculaProvider.getEnCines(),
+      future: widget.peliculaProvider.getEnCines(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return CardSwiper(peliculas: snapshot.data);
@@ -151,46 +150,125 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _pageView(context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(left: 20.0),
-            child:
-                Text('Populares', style: Theme.of(context).textTheme.subtitle1),
-          ),
-          SizedBox(
-            height: 5.0,
-          ),
-          //StreamBuilder: Se ejecuta cada vez que se emita un valor en el stream
-          StreamBuilder(
-            stream: peliculaProvider.popularesStream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return CardHorizontal(
-                  peliculas: snapshot.data,
-                  siguientePagina:
-                      peliculaProvider.getPopulares, //definicion de la funcion
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            },
-          )
-        ],
-      ),
+    return FutureBuilder(
+      future: widget.peliculaProvider.getPopulares(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return CardHorizontal(
+            peliculas: snapshot.data,
+            siguientePagina:
+                widget.peliculaProvider.getPopulares, //definicion de la funcion
+          );
+        } else {
+          print('else: CircularProgressIndicator');
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
-  Widget _scrollBody(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverList(
-            delegate: SliverChildListDelegate(
-                [_swiperTarjetas(), _pageView(context)]))
-      ],
+  Widget _cardPageView(BuildContext context) {
+    return FutureBuilder(
+      future: widget.peliculaProvider.getPopulares(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return CardPageView(
+            peliculas: snapshot.data,
+            siguientePagina:
+                widget.peliculaProvider.getPopulares, //definicion de la funcion
+          );
+        } else {
+          print('else: CircularProgressIndicator');
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Widget _singleChildScrollView(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _swiperTarjetas(),
+          SizedBox(height: 10.0),
+          SizedBox(height: 200.0, child: _pageView(context)),
+          Text(
+            'Tus favoritos',
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(
+              height: 325.0,
+              width: double.infinity,
+              child: _cardPageView(context)),
+          SizedBox(height: 200.0),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          ),
+          Card(
+            child: ListTile(
+                title: Text('Motivation $int'),
+                subtitle: Text('this is a description of the motivation')),
+          )
+        ],
+      ),
     );
   }
 }
