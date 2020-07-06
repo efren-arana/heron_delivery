@@ -6,7 +6,9 @@ import 'package:heron_delivery/src/utils/color_util.dart' as color;
 class CardPageView extends StatelessWidget {
   final List<Pelicula> peliculas;
   final _decoration = BoxDecoration(
-      color: Colors.black26, borderRadius: BorderRadius.circular(20.0));
+    color: Colors.black12,
+    borderRadius: BorderRadius.circular(5.0),
+  );
 
   final _scrollController = ScrollController();
   final Function siguientePagina;
@@ -55,7 +57,7 @@ class CardPageView extends StatelessWidget {
                     placeholder: AssetImage('assets/img/jar-loading.gif'),
                     image: NetworkImage(pelicula.getPosterImg()),
                     fadeInDuration: Duration(milliseconds: 500),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     height: 200.0,
                     width: 275.0,
                   ),
@@ -85,47 +87,44 @@ class CardPageView extends StatelessWidget {
             Expanded(
               child: Container(
                   child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Expanded(
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15.0),
-                        decoration: _decoration,
-                        child: Text(
-                          ' ${pelicula.voteAverage}',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: color.getColorGrisRGBO(),
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w400),
-                        )),
-                  ),
-                  Expanded(
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: _decoration,
-                        child: Text(
-                          '${pelicula.voteCount}min',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: color.getColorGrisRGBO(),
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w400),
-                        )),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: _decoration,
-                      child: Row(
-                        children: <Widget>[
-                          Text(pelicula.voteAverage.toString()),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                          ),
-                        ],
-                      ),
+                      child: Text(
+                        ' ${pelicula.voteAverage}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: color.getColorGrisRGBO(),
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w400),
+                      )),
+                  Container(
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: _decoration,
+                      child: Text(
+                        '${pelicula.voteCount}min',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: color.getColorGrisRGBO(),
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w400),
+                      )),
+                  Container(
+                    decoration: _decoration,
+                    child: Row(
+                      children: <Widget>[
+                        Text(pelicula.voteAverage.toString()),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Text(
+                          '(${pelicula.id})',
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
                   ),
                   IconButton(
