@@ -30,16 +30,20 @@ class BodyHomePage extends StatelessWidget {
           icon: Icon(
             Icons.account_circle,
             size: 35.0,
-            color: color.getColorBlueHex(),
+            color: color.getColorBlueRGBO(),
           ),
           onPressed: () {},
         ),
-        title: GestureDetector(
-          child: _location(),
-          onTap: () {
-            Navigator.pushNamed(context, 'user-location');
-          },
-        ),
+        title: FlatButton.icon(
+            onPressed: () {
+              //navigator.pusshed
+            },
+            icon: Icon(
+              Icons.location_on,
+              color: color.getColorBlueHex(),
+              size: 20.0,
+            ),
+            label: Text('Location')),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

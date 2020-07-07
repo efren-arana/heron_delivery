@@ -21,15 +21,14 @@ class MyApp extends StatelessWidget {
         .copyWith(statusBarColor: Colors.transparent));
 
     return MaterialApp(
-	  theme: ThemeData(
-		primaryColor: Colors.red
-	  ),
+      theme: ThemeData(primaryColor: Colors.red),
       debugShowCheckedModeBanner: false,
       title: 'Heron Delivery',
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
-        '/': (BuildContext context) => HomePage(),
-        'user-location': (BuildContext context) => UserLocation(),
+        '/home': (BuildContext context) => HomePage(),
+        // '/': (BuildContext context) => LoadingPage(),
+        '/user-location': (BuildContext context) => UserLocation(),
       },
     );
   }

@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         onTap: _onItemTapped, //envio la referencia a la funcion
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: color.getColorYellowHex(),
+        backgroundColor: color.getColorYellowRGBO(),
         selectedItemColor: color.getColorBlueHex(),
         unselectedItemColor: color.getColorGrisRGBO(),
         selectedFontSize: 15,
