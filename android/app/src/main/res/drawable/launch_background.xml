@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/heron-delivery" />
+            android:src="@mipmap/heron_delivery" />
     </item>
 </layer-list>

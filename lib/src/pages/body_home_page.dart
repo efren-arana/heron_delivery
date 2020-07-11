@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/providers/pelicula_provider.dart';
 import 'package:heron_delivery/src/search/search_delegate.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
-import 'package:heron_delivery/src/utils/font_util.dart' as font;
 import 'package:heron_delivery/src/widgets/card_horizontal.dart';
 import 'package:heron_delivery/src/widgets/card_page_view.dart';
 import 'package:heron_delivery/src/widgets/card_swiper.dart';
@@ -34,16 +33,7 @@ class BodyHomePage extends StatelessWidget {
           ),
           onPressed: () {},
         ),
-        title: FlatButton.icon(
-            onPressed: () {
-              //navigator.pusshed
-            },
-            icon: Icon(
-              Icons.location_on,
-              color: color.getColorBlueHex(),
-              size: 20.0,
-            ),
-            label: Text('Location')),
+        title: _location(),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,25 +61,17 @@ class BodyHomePage extends StatelessWidget {
   /// Parametros de la localizacion actual del usuario registrado
   Widget _location() {
     return SafeArea(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: Row(
-          children: <Widget>[
-            Container(
-                width: 70.0,
-                child: Text('$_sector', style: font.getFontAppBar())),
-            Container(
-                width: 85.0,
-                child: Text(',$_ciudad', style: font.getFontAppBar())),
-            Icon(
+        child: FlatButton.icon(
+            textColor: color.getColorGrisRGBO(),
+            onPressed: () {
+              //navigator.pusshed
+            },
+            icon: Icon(
               Icons.location_on,
               color: color.getColorBlueHex(),
               size: 20.0,
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+            label: Text('Location')));
   }
 
   /// Crear la presentacion de anuncios
@@ -156,10 +138,22 @@ class BodyHomePage extends StatelessWidget {
         children: <Widget>[
           _swiperTarjetas(),
           SizedBox(height: 10.0),
-          SizedBox(height: 200.0, child: _pageView(context)),
-          Text(
-            'Tus favoritos',
-            style: TextStyle(fontSize: 18),
+          SizedBox(height: 20.0, child: Divider()),
+          SizedBox(
+            height: 25.0,
+            child: Text(
+              'Categorias',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          SizedBox(height: 170.0, child: _pageView(context)),
+          SizedBox(height: 15.0, child: Divider()),
+          SizedBox(
+            height: 25.0,
+            child: Text(
+              'Favoritos',
+              style: TextStyle(fontSize: 18),
+            ),
           ),
           SizedBox(
               height: 325.0,

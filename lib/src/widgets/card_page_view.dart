@@ -46,7 +46,7 @@ class CardPageView extends StatelessWidget {
         elevation: 2.0,
         clipBehavior: Clip.antiAlias,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Center(
               child: Container(
@@ -65,31 +65,32 @@ class CardPageView extends StatelessWidget {
               ),
             ),
             Container(
-                padding: EdgeInsets.only(left: 7.0),
+                //padding: EdgeInsets.only(left: 7.0),
                 child: Text(
-                  'Restauran $pelicula.title',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: color.getColorGrisRGBO(),
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.w700),
-                )),
+              'Restauran ${pelicula.title}',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: color.getColorGrisRGBO(),
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w700),
+            )),
             Container(
-                padding: EdgeInsets.only(left: 7.0),
+                //padding: EdgeInsets.only(left: 7.0),
                 child: Text(
-                  'Postres $pelicula.title',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: color.getColorGrisRGBO(),
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w400),
-                )),
+              'Categoria $pelicula.title',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: color.getColorGrisRGBO(),
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w400),
+            )),
             Expanded(
               child: Container(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
+                      //precio
                       padding: EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: _decoration,
                       child: Text(
@@ -101,10 +102,11 @@ class CardPageView extends StatelessWidget {
                             fontWeight: FontWeight.w400),
                       )),
                   Container(
+                      //tiempo de entrega
                       margin: EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: _decoration,
                       child: Text(
-                        '${pelicula.voteCount}min',
+                        '${pelicula.voteCount}-min',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: color.getColorGrisRGBO(),
@@ -112,6 +114,7 @@ class CardPageView extends StatelessWidget {
                             fontWeight: FontWeight.w400),
                       )),
                   Container(
+                    //calificacion del restauran del 1 al 5 con las personas que botaron
                     decoration: _decoration,
                     child: Row(
                       children: <Widget>[
@@ -128,6 +131,7 @@ class CardPageView extends StatelessWidget {
                     ),
                   ),
                   IconButton(
+                      //boton para indicar que el restauran es favorito
                       icon: Icon(
                         Icons.favorite_border,
                         size: 30.0,
@@ -151,9 +155,7 @@ class CardPageView extends StatelessWidget {
                 blurRadius: 10.0,
                 spreadRadius: 2.0,
                 offset: Offset(5.0, 10.0))
-          ]
-          //color: Colors.red,
-          ),
+          ]),
     );
 
     return GestureDetector(

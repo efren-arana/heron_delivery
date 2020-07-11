@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.assignment), title: Text('Pedidos')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_grocery_store), title: Text('Carrito')),
+              icon: Icon(Icons.share), title: Text('Share')),
         ]);
   }
 }

@@ -68,6 +68,7 @@ class PeliculaProvider {
 
     final url = Uri.https(_domain, _resource,
         {'api_key': _apiKey, 'language': _language, 'query': query});
+    print('3/search/movie');
     return await this._httpGet(url);
   }
 

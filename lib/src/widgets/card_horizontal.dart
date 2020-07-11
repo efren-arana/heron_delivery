@@ -27,7 +27,7 @@ class CardHorizontal extends StatelessWidget {
     }
 
     return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
       controller: _scrollController,
       physics: ClampingScrollPhysics(),
       shrinkWrap: true,
@@ -42,8 +42,8 @@ class CardHorizontal extends StatelessWidget {
   Widget _tarjeta(BuildContext context, Pelicula pelicula) {
     pelicula.uniqueId = '${pelicula.id}-poster';
     final tarjeta = Container(
-      height: 200.0,
-      width: 100.0,
+      //height: 10.0,
+      width: 80.0,
       margin: EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
         children: <Widget>[
@@ -54,7 +54,7 @@ class CardHorizontal extends StatelessWidget {
               child: FadeInImage(
                 placeholder: AssetImage('assets/img/no-image.jpg'),
                 image: NetworkImage(pelicula.getPosterImg()),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),
