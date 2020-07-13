@@ -1,23 +1,96 @@
 import 'package:flutter/material.dart';
+import 'package:heron_delivery/src/search/search_delegate.dart';
+
+import 'package:heron_delivery/src/utils/color_util.dart' as color;
 import 'package:heron_delivery/src/pages/body_home_page.dart';
 import 'package:heron_delivery/src/pages/favorito_page.dart';
-import 'package:heron_delivery/src/utils/color_util.dart' as color;
+import 'package:heron_delivery/src/share_prefs/prefs_user.dart';
+import 'package:heron_delivery/src/widgets/menu_widget.dart';
 
 class HomePage extends StatefulWidget {
+  static final String routeName = 'home';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  PrefsUser prefsUser = new PrefsUser();
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    prefsUser.ultimaPagina = HomePage.routeName;
+  }
 
   @override
   Widget build(BuildContext context) {
     //peliculaProvider.getPopulares();
 
     return Scaffold(
+        drawer: MenuWidget(),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(40.0), child: _appBar(context)),
         body: _crearPage(_selectedIndex),
         bottomNavigationBar: _bottonNavigationBar(context));
+  }
+
+  /// Dibujo la barra superior del home
+  PreferredSizeWidget _appBar(BuildContext context) {
+    return AppBar(
+        centerTitle: true,
+        leading: Builder(builder: (BuildContext context) {
+          return IconButton(
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            padding: EdgeInsets.only(left: 10.0),
+            icon: Icon(
+              Icons.account_circle,
+              size: 35.0,
+              color: color.getColorBlueRGBO(),
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          );
+        }),
+        title: _location(),
+        actions: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                  padding: EdgeInsets.only(right: 10.0),
+                  icon: Icon(
+                    Icons.search,
+                    color: color.getColorBlueRGBO(),
+                    size: 30.0,
+                  ),
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: DataSearch(),
+                      query: null,
+                    );
+                  })
+            ],
+          ),
+        ],
+        backgroundColor: color.getColorYellowRGBO());
+  }
+
+  /// Parametros de la localizacion actual del usuario registrado
+  Widget _location() {
+    return SafeArea(
+        child: FlatButton.icon(
+            textColor: color.getColorGrisRGBO(),
+            onPressed: () {
+              //navigator.pusshed
+            },
+            icon: Icon(
+              Icons.location_on,
+              color: color.getColorBlueHex(),
+              size: 20.0,
+            ),
+            label: Text('Location')));
   }
 
   /// Retorna la pagina segun el indixe que reciba como parametro

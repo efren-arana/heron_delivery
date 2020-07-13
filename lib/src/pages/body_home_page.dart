@@ -5,6 +5,7 @@ import 'package:heron_delivery/src/utils/color_util.dart' as color;
 import 'package:heron_delivery/src/widgets/card_horizontal.dart';
 import 'package:heron_delivery/src/widgets/card_page_view.dart';
 import 'package:heron_delivery/src/widgets/card_swiper.dart';
+import 'package:heron_delivery/src/widgets/menu_widget.dart';
 
 class BodyHomePage extends StatelessWidget {
   final _sector = 'Tejerias';
@@ -13,9 +14,10 @@ class BodyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40.0), child: _appBar(context)),
+    return new Scaffold(
+      //drawer: MenuWidget(),
+      //appBar: PreferredSize(
+      //    preferredSize: Size.fromHeight(40.0), child: _appBar(context)),
       body: _singleChildScrollView(context),
     );
   }
@@ -24,15 +26,18 @@ class BodyHomePage extends StatelessWidget {
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
         centerTitle: true,
-        leading: IconButton(
-          padding: EdgeInsets.only(left: 10.0),
-          icon: Icon(
-            Icons.account_circle,
-            size: 35.0,
-            color: color.getColorBlueRGBO(),
-          ),
-          onPressed: () {},
-        ),
+        leading: Builder(builder: (BuildContext context) {
+          return IconButton(
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            padding: EdgeInsets.only(left: 10.0),
+            icon: Icon(
+              Icons.account_circle,
+              size: 35.0,
+              color: color.getColorBlueRGBO(),
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          );
+        }),
         title: _location(),
         actions: <Widget>[
           Row(

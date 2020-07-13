@@ -5,11 +5,17 @@ class FavoritoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text(
-          'Favorito Home Page!!',
-          style: TextStyle(fontSize: 50.0),
+    return new Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(0.0, 0.0),
+        child: Container(),
+      ),
+      body: Center(
+        child: Container(
+          child: Text(
+            'Favorito Home Page!!',
+            style: TextStyle(fontSize: 50.0),
+          ),
         ),
       ),
     );

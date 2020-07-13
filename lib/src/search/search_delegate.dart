@@ -477,11 +477,12 @@ class DataSearch extends SearchDelegate {
     // Sugenrencias (peticion AJAX)
 
     //Corregir al seleccion el campo de busqueda se ejecuta la peticion para obtener resultados
+
     if (query.isNotEmpty) {
       return obtieneResults();
     }
 
-    if (sugerencia != null) {
+    if (sugerencia != null && query.isEmpty) {
       return sugerencia;
     }
 

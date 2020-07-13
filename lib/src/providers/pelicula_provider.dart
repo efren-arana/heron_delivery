@@ -10,9 +10,10 @@ class PeliculaProvider {
   String _language = 'es-ES';
   bool _cargando = false;
   int _popularesPage = 0;
+  String busqueda = '';
 
   List<Pelicula> _populares = new List();
-
+  List<Pelicula> _listQuery = new List();
   final _popularesStreamController =
       StreamController<List<Pelicula>>.broadcast();
 
@@ -66,10 +67,16 @@ class PeliculaProvider {
   Future<List<Pelicula>> searchMovie(String query) async {
     String _resource = '3/search/movie';
 
+    if (busqueda.compareTo(query) == 0) {
+      return _listQuery;
+    }
+    busqueda = query;
+
     final url = Uri.https(_domain, _resource,
         {'api_key': _apiKey, 'language': _language, 'query': query});
     print('3/search/movie');
-    return await this._httpGet(url);
+    _listQuery = await this._httpGet(url);
+    return _listQuery;
   }
 
   Future<List<Pelicula>> _httpGet(Uri url) async {
