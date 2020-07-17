@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
 import 'package:heron_delivery/src/pages/settings_page.dart';
 
@@ -47,7 +48,7 @@ class MenuWidget extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.vignette),
+            leading: Icon(FontAwesomeIcons.delicious),
             title: Text('Quiero vender en la App'),
             onTap: () {},
           ),
@@ -59,7 +60,7 @@ class MenuWidget extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(FontAwesomeIcons.cogs),
             title: Text('Settings'),
             onTap: () {
               Navigator.pop(context);
@@ -68,7 +69,7 @@ class MenuWidget extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.input),
+            leading: Icon(FontAwesomeIcons.signOutAlt),
             title: Text('Cerrar sesion'),
             onTap: () {
               Navigator.pop(context);
