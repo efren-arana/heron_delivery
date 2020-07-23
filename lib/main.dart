@@ -12,12 +12,12 @@ import 'package:heron_delivery/src/widgets/menu_widget.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  //permite inicializar las preferencias del usuario
-  WidgetsFlutterBinding
-      .ensureInitialized(); //bloquea el giro de la pantalla en (android)
+  //bloquea el giro de la pantalla en (android) y permite inicializar las preferencias del usuario
+  WidgetsFlutterBinding.ensureInitialized(); 
 
   //final prefs = new PrefsUser();
   //await prefs.initPrefs();
+  //bloquea el giro de la pantalla en (android)
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(new MyApp());
