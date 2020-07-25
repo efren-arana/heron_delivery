@@ -54,9 +54,23 @@ class _BodyHomePageState extends State<BodyHomePage>
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          leading: Container(),
-          actions: <Widget>[Container()],
-          title: _barraSuperior(),
+          leading: Expanded(
+            child: IconButton(
+              iconSize: 35.0,
+                  onPressed: widget.scaffoldKey.currentState.openDrawer,
+                  icon: Icon(FontAwesomeIcons.userCircle),
+                  color: Colors.white,
+                ),
+          ),
+          actions: <Widget>[IconButton(
+            iconSize: 30.0,
+                onPressed: widget.scaffoldKey.currentState.openDrawer,
+                icon: Icon(FontAwesomeIcons.shareAlt),
+                color: Colors.white,
+              ),
+              
+              ],
+          //title: _barraSuperior(),
           pinned: true,
           expandedHeight: 210.0,
           flexibleSpace: FlexibleSpaceBar(

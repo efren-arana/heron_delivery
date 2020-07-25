@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "734190231601",
+    "firebase_url": "https://e-commerce-1b7d5.firebaseio.com",
+    "project_id": "e-commerce-1b7d5",
+    "storage_bucket": "e-commerce-1b7d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734190231601:android:8e3d12af1785da817df510",
+        "android_client_info": {
+          "package_name": "com.eaflutter.heron_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734190231601-5tvjjvq0d5abk9igu8u26sdqmb6kitai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLrjcycgkTGOi6kCeNt37ivc71Z-2loas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734190231601-5tvjjvq0d5abk9igu8u26sdqmb6kitai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
