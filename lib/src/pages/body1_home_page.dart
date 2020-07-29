@@ -4,7 +4,7 @@ import 'package:heron_delivery/src/models/category_model.dart';
 import 'package:heron_delivery/src/models/news_models.dart';
 import 'package:heron_delivery/src/pages/myflexiableappbar.dart';
 import 'package:heron_delivery/src/providers/pelicula_provider.dart';
-import 'package:heron_delivery/src/search/search_delegate.dart';
+import 'package:heron_delivery/src/widgets/search_delegate.dart';
 import 'package:heron_delivery/src/services/news_service.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
 import 'package:heron_delivery/src/widgets/card_horizontal.dart';
@@ -24,8 +24,7 @@ class BodyHomePage extends StatefulWidget {
   _BodyHomePageState createState() => _BodyHomePageState();
 }
 
-class _BodyHomePageState extends State<BodyHomePage>
-    with AutomaticKeepAliveClientMixin {
+class _BodyHomePageState extends State<BodyHomePage> with AutomaticKeepAliveClientMixin {
   //final peliculaProvider = PeliculaProvider();
   /*
   void _closeDrawer() {

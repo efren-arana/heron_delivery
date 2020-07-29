@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/pages/body1_home_page.dart';
 import 'package:heron_delivery/src/pages/favorito_page.dart';
-import 'package:heron_delivery/src/search/search_delegate.dart';
+import 'package:heron_delivery/src/widgets/search_delegate.dart';
 import 'package:heron_delivery/src/widgets/menu_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
@@ -12,6 +12,8 @@ class TabsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      //I have wrapped my widget with ChangeNotifierProvider 
+      //so my widget will be notified when the value changes.
       create: (_) => new _NavegacionModel(),
       child: Scaffold(
         key: _scaffoldKey,

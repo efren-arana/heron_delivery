@@ -26,6 +26,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   //final prefs = new PrefsUser();
+  
   @override
   Widget build(BuildContext context) {
     // Establece el color de la barra de notificaciones
