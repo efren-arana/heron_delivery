@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => new NewsService())],
       child: MaterialApp(
+        
         theme: ThemeData(primaryColor: color.getColorBlueRGBO()),
         debugShowCheckedModeBanner: false,
         title: 'Heron Delivery',
