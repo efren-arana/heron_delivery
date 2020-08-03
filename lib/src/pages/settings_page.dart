@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/src/share_prefs/prefs_user.dart';
+import 'package:heron_delivery/src/cached/prefs_user.dart';
 import 'package:heron_delivery/src/widgets/menu_widget.dart';
 
 class SettingsPage extends StatefulWidget {

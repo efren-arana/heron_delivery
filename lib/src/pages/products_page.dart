@@ -1,17 +1,15 @@
-/*
-import 'package:heron_delivery/src/pages/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:heron_delivery/src/models/product_model.dart';
 import 'package:provider/provider.dart';
-import '../models/product_model.dart';
 
-class ProductsPage extends StatelessWidget {
+class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final products = Provider.of<List<Product>>(context);
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('ProductsPage'),
+          title: Text('Products'),
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -19,8 +17,8 @@ class ProductsPage extends StatelessWidget {
                 size: 30.0,
               ),
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EditProduct()));
+                //Navigator.of(context).push(
+                //    MaterialPageRoute(builder: (context) => EditProduct()));
               },
             )
           ],
@@ -33,13 +31,11 @@ class ProductsPage extends StatelessWidget {
                     title: Text(products[index].name),
                     trailing: Text(products[index].price.toString()),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EditProduct(products[index])));
+                      //Navigator.of(context).push(MaterialPageRoute(
+                      //    builder: (context) => EditProduct(products[index])));
                     },
                   );
                 })
             : Center(child: CircularProgressIndicator()));
   }
 }
-
-*/

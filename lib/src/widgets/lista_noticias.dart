@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/models/news_models.dart';
+import 'package:heron_delivery/src/models/shop_model.dart';
 import 'package:heron_delivery/src/pages/myappbar.dart';
 import 'package:heron_delivery/src/pages/myflexiableappbar.dart';
 import 'package:heron_delivery/src/theme/tema.dart';
@@ -34,7 +35,7 @@ class ListaNoticias extends StatelessWidget {
 }
 */
 class Noticia extends StatelessWidget {
-  final Article noticia;
+  final Shop noticia;
   final int index;
 
   const Noticia({@required this.noticia, @required this.index});
@@ -84,7 +85,7 @@ class _TarjetaBotones extends StatelessWidget {
 }
 
 class _TarjetaBody extends StatelessWidget {
-  final Article noticia;
+  final Shop noticia;
 
   const _TarjetaBody(this.noticia);
 
@@ -97,7 +98,7 @@ class _TarjetaBody extends StatelessWidget {
 }
 
 class _TarjetaImagen extends StatelessWidget {
-  final Article noticia;
+  final Shop noticia;
 
   const _TarjetaImagen(this.noticia);
 
@@ -109,10 +110,10 @@ class _TarjetaImagen extends StatelessWidget {
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
         child: Container(
-            child: (noticia.urlToImage != null)
+            child: (noticia.imageUrl != null)
                 ? FadeInImage(
                     placeholder: AssetImage('assets/img/giphy.gif'),
-                    image: NetworkImage(noticia.urlToImage))
+                    image: NetworkImage(noticia.imageUrl))
                 : Image(
                     image: AssetImage('assets/img/no-image.png'),
                   )),
@@ -122,7 +123,7 @@ class _TarjetaImagen extends StatelessWidget {
 }
 
 class _TarjetaTitulo extends StatelessWidget {
-  final Article noticia;
+  final Shop noticia;
 
   const _TarjetaTitulo(this.noticia);
 
@@ -131,7 +132,7 @@ class _TarjetaTitulo extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: Text(
-        noticia.title,
+        noticia.name,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
       ),
     );
@@ -139,7 +140,7 @@ class _TarjetaTitulo extends StatelessWidget {
 }
 
 class _TarjetaTopBar extends StatelessWidget {
-  final Article noticia;
+  final Shop noticia;
   final int index;
 
   const _TarjetaTopBar(this.noticia, this.index);
@@ -155,7 +156,7 @@ class _TarjetaTopBar extends StatelessWidget {
             '${index + 1}. ',
             style: TextStyle(color: miTema.accentColor),
           ),
-          Text('${noticia.source.name}. '),
+          Text('${noticia.name}. '),
         ],
       ),
     );

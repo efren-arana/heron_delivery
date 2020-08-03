@@ -1,17 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/src/models/category_model.dart';
-import 'package:heron_delivery/src/models/news_models.dart';
 import 'package:heron_delivery/src/pages/myflexiableappbar.dart';
-import 'package:heron_delivery/src/providers/pelicula_provider.dart';
+import 'package:heron_delivery/src/providers/category_provider.dart';
+import 'package:heron_delivery/src/widgets/list_categories.dart';
 import 'package:heron_delivery/src/widgets/search_delegate.dart';
 import 'package:heron_delivery/src/services/news_service.dart';
-import 'package:heron_delivery/src/utils/color_util.dart' as color;
-import 'package:heron_delivery/src/widgets/card_horizontal.dart';
-import 'package:heron_delivery/src/widgets/card_page_view.dart';
-import 'package:heron_delivery/src/widgets/card_swiper.dart';
-import 'package:heron_delivery/src/widgets/lista_noticias.dart';
-import 'package:heron_delivery/src/widgets/menu_widget.dart';
+import 'package:heron_delivery/src/widgets/sliver_list.dart';
 import 'package:provider/provider.dart';
 
 class BodyHomePage extends StatefulWidget {
@@ -24,78 +20,27 @@ class BodyHomePage extends StatefulWidget {
   _BodyHomePageState createState() => _BodyHomePageState();
 }
 
-class _BodyHomePageState extends State<BodyHomePage> with AutomaticKeepAliveClientMixin {
-  //final peliculaProvider = PeliculaProvider();
-  /*
-  void _closeDrawer() {
-    Navigator.of(context).pop();
-  }
-*/
-
+class _BodyHomePageState extends State<BodyHomePage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    //final headlines = Provider.of<NewsService>(context).headlines;
-    /*
+
     return SafeArea(
-      child: Scaffold(
-          body: (headlines.length == 0)
-              ? Center(child: CircularProgressIndicator())
-              : _listarNoticias(headlines)),
-    );
-    */
-    return SafeArea(child: Scaffold(body: _listarNoticias()));
+        child: Scaffold(
+            body: CustomScrollView(
+      slivers: <Widget>[
+        _SliverAppBar(widget: widget),
+        ListCategoryWidget(),
+        SliverListWidget(),
+      ],
+    )));
   }
 
   _listarNoticias() {
     final newsService = Provider.of<NewsService>(context);
 
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          leading: Expanded(
-            child: IconButton(
-              iconSize: 35.0,
-                  onPressed: widget.scaffoldKey.currentState.openDrawer,
-                  icon: Icon(FontAwesomeIcons.userCircle),
-                  color: Colors.white,
-                ),
-          ),
-          actions: <Widget>[IconButton(
-            iconSize: 30.0,
-                onPressed: widget.scaffoldKey.currentState.openDrawer,
-                icon: Icon(FontAwesomeIcons.shareAlt),
-                color: Colors.white,
-              ),
-              
-              ],
-          //title: _barraSuperior(),
-          pinned: true,
-          expandedHeight: 210.0,
-          flexibleSpace: FlexibleSpaceBar(
-            background: MyFlexiableAppBar(),
-          ),
-        ),
-        SliverToBoxAdapter(child: _ListaCategorias()),
-        if (!newsService.isLoading)
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-              return Noticia(
-                  noticia: newsService.getArticulosCategoriaSeleccionada[index],
-                  index: index);
-            },
-                childCount:
-                    newsService.getArticulosCategoriaSeleccionada.length),
-          ),
-        if (newsService.isLoading)
-          SliverToBoxAdapter(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
-      ],
-    );
+    return null;
   }
 
   _barraSuperior() {
@@ -146,66 +91,42 @@ class _BodyHomePageState extends State<BodyHomePage> with AutomaticKeepAliveClie
   bool get wantKeepAlive => true;
 }
 
-class _ListaCategorias extends StatelessWidget {
+class _SliverAppBar extends StatelessWidget {
+  const _SliverAppBar({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final BodyHomePage widget;
+
   @override
   Widget build(BuildContext context) {
-    final categories = Provider.of<NewsService>(context).categories;
-
-    return Container(
-      width: double.infinity,
-      height: 80,
-      child: ListView.builder(
-        physics:
-            BouncingScrollPhysics(), //para que el scroll sea igual que en android
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (BuildContext context, int index) {
-          final cName = categories[index].name;
-
-          return Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              children: <Widget>[
-                _CategoryButton(categories[index]),
-                SizedBox(height: 5),
-                Text('${cName[0].toUpperCase()}${cName.substring(1)}')
-              ],
-            ),
-          );
-        },
+    return SliverAppBar(
+      leading: IconButton(
+        iconSize: 30.0,
+        onPressed: widget.scaffoldKey.currentState.openDrawer,
+        icon: FaIcon(FontAwesomeIcons.userCircle),
+        color: Colors.white,
       ),
-    );
-  }
-}
-
-class _CategoryButton extends StatelessWidget {
-  final Category categoria;
-
-  const _CategoryButton(this.categoria);
-
-  @override
-  Widget build(BuildContext context) {
-    //obtengo la instancia del servicio para cambiar el color de la categoria
-    final newsService = Provider.of<NewsService>(context);
-
-    return GestureDetector(
-      onTap: () {
-        // print('${ categoria.name }');
-        //colocar el listen en false cuando el provider se encuentra en un tag
-        final newsService = Provider.of<NewsService>(context, listen: false);
-        newsService.selectedCategory = categoria.name;
-      },
-      child: Container(
-        width: 40,
-        height: 40,
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-        child: Icon(
-          categoria.icon,
-          color: (newsService.selectedCategory == this.categoria.name)
-              ? color.getColorYellowRGBO()
-              : Colors.black54,
+      actions: <Widget>[
+        IconButton(
+          iconSize: 30.0,
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: DataSearch(),
+              query: null,
+            );
+          },
+          icon: FaIcon(FontAwesomeIcons.search),
+          color: Colors.white,
         ),
+      ],
+      //title: _barraSuperior(),
+      pinned: true,
+      expandedHeight: 210.0,
+      flexibleSpace: FlexibleSpaceBar(
+        background: MyFlexiableAppBar(),
       ),
     );
   }

@@ -1,18 +1,15 @@
-class Product{
+class Product {
   final String productId;
   final String name;
   final double price;
 
-  Product({this.productId,this.price, this.name});
+  Product({this.productId, this.price, this.name});
 
-  Map<String,dynamic> toMap(){
-    return {
-      'productId' : productId,
-      'name' : name,
-      'price' : price
-    };
+  Map<String, dynamic> toMap() {
+    return {'productId': productId, 'name': name, 'price': price};
   }
 
+  /// Constructor con nombre que recibe la respuesta del Backernd(Firebase) y la mapea al modelo
   Product.fromFirestore(Map<String, dynamic> firestore)
       : productId = firestore['productId'],
         name = firestore['name'],
