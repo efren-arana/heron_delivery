@@ -4,7 +4,7 @@ import 'package:heron_delivery/src/widgets/search_delegate.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
 import 'package:heron_delivery/src/pages/body_home_page.dart';
 import 'package:heron_delivery/src/pages/favorito_page.dart';
-import 'package:heron_delivery/src/share_prefs/prefs_user.dart';
+import 'package:heron_delivery/src/cached/prefs_user.dart';
 import 'package:heron_delivery/src/widgets/menu_widget.dart';
 
 class HomePage extends StatefulWidget {

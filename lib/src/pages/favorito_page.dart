@@ -5,7 +5,7 @@ class FavoritoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(0.0, 0.0),
         child: Container(),

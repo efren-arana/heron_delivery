@@ -39,10 +39,36 @@ class NewsService with ChangeNotifier {
     this.getArticlesByCategory(this._selectedCategory);
   }
 
+  /// obtengo la lista de las noticias por categoria
+  getArticlesByCategory(String category) async {
+    //valido si ya existe informacion en el mapa
+    if (this.categoryArticles[category].length > 0) {
+      this._isLoading = false;
+      notifyListeners();
+      return this.categoryArticles[category];
+    }
+
+    if (category == null) {
+      category = 'business';
+    }
+    final url =
+        '$_URL_NEWS/top-headlines?apiKey=$_APIKEY&country=us&category=$category';
+    final resp = await http.get(url);
+
+    final newsResponse = newsResponseFromJson(resp.body);
+
+    //almacenar la respuesta de las noticias por categoria en el mapa
+    this.categoryArticles[category].addAll(newsResponse.articles);
+
+    this._isLoading = false;
+    notifyListeners();
+  }
+
   bool get isLoading => this._isLoading;
 
   /// setter and getter selected category
   get selectedCategory => this._selectedCategory;
+
   /// seteo la categoria seleccionada
   set selectedCategory(String valor) {
     this._selectedCategory = valor;
@@ -67,30 +93,5 @@ class NewsService with ChangeNotifier {
     //agrego una lista a otra lista
     this.headlines.addAll(newsResponse.articles);
     notifyListeners(); //notifico a los que estan escuchando este provider
-  }
-
-  /// obtengo la lista de las noticias por categoria
-  getArticlesByCategory(String category) async {
-    //valido si ya existe informacion en el mapa
-    if (this.categoryArticles[category].length > 0) {
-      this._isLoading = false;
-      notifyListeners();
-      return this.categoryArticles[category];
-    }
-
-    if (category == null) {
-      category = 'business';
-    }
-    final url =
-        '$_URL_NEWS/top-headlines?apiKey=$_APIKEY&country=us&category=$category';
-    final resp = await http.get(url);
-
-    final newsResponse = newsResponseFromJson(resp.body);
-
-    //almacenar la respuesta de las noticias por categoria en el mapa
-    this.categoryArticles[category].addAll(newsResponse.articles);
-
-    this._isLoading = false;
-    notifyListeners();
   }
 }

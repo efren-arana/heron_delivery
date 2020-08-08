@@ -85,7 +85,7 @@ class Pelicula {
   }
 
   getbackdropPathImg() {
-    if (this.posterPath == null) {
+    if (this.backdropPath == null) {
       return 'https://labs357.com/nuevo/wp-content/themes/consultix/images/no-image-found-360x250.png';
     } else {
       return 'https://image.tmdb.org/t/p/w500/$backdropPath';
