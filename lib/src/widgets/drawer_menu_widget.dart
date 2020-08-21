@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
 import 'package:heron_delivery/src/pages/settings_page.dart';
 
-class MenuWidget extends StatelessWidget {
+class DrawerMenuWidget extends StatelessWidget {
   final _trailing = Icon(Icons.arrow_forward_ios);
   @override
   Widget build(BuildContext context) {
@@ -11,26 +11,33 @@ class MenuWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          SafeArea(
-            child: DrawerHeader(
-              child: Center(
-                child: Container(
+          DrawerHeader(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CircleAvatar(
+                  maxRadius: 30.0,
+            child: Text('EA'),
+            backgroundColor: Colors.green[600],
+            foregroundColor: Colors.white,
+          ),
+                Container(
                   child: Text('Hola Denisse'),
                 ),
-              ),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      alignment: Alignment.bottomCenter,
-                      image: AssetImage('assets/img/drawerHeader2.png'),
-                      fit: BoxFit.contain)),
+              ],
             ),
+           decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/img/drawer_menu-img.jpg'),
+                    fit: BoxFit.cover)), 
           ),
           ListTile(
             leading: Icon(Icons.account_box),
             title: Text('Perfil'),
             trailing: _trailing,
             onTap: () {
-              Navigator.pushReplacementNamed(context, HomePage.routeName);
+              //Navigator.pushReplacementNamed(context, HomePage.routeName);
             },
           ),
           Divider(),

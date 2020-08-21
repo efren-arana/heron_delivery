@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/src/models/product_model.dart';
+import 'package:heron_delivery/src/models/item_model.dart';
 import 'package:heron_delivery/src/models/shop_model.dart';
 import 'package:heron_delivery/src/shared/card_product.dart';
 
 class GridProductWidget extends StatelessWidget {
-
-  const GridProductWidget({Key key}) : super(key: key);
+  final List<Item> items = [
+    Item(price: 18.0,name: 'Laptop'),
+    Item(price: 18.0,name: 'iphone X'),
+    Item(price: 18.0,name: 'Mouse')
+  ];
+  
   
   @override
   Widget build(BuildContext context) {
@@ -14,9 +18,9 @@ class GridProductWidget extends StatelessWidget {
       sliver: SliverGrid(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return CardProduct(product: new Product(),);
+              return CardProduct(item:items[index],);
             },
-            childCount: 10,
+            childCount: items.length,
           ),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

@@ -1,44 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/src/models/news_models.dart';
 import 'package:heron_delivery/src/models/shop_model.dart';
-import 'package:heron_delivery/src/pages/myappbar.dart';
-import 'package:heron_delivery/src/pages/myflexiableappbar.dart';
 import 'package:heron_delivery/src/theme/tema.dart';
 
-/*
-class ListaNoticias extends StatelessWidget {
-  final List<Article> noticias;
 
-  const ListaNoticias(this.noticias);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          title: MyAppBar(),
-          pinned: true,
-          expandedHeight: 210.0,
-          flexibleSpace: FlexibleSpaceBar(
-            background: MyFlexiableAppBar(),
-          ),
-        ),
-        SliverList(
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-            return _Noticia(noticia: this.noticias[index], index: index);
-          }, childCount: this.noticias.length),
-        ),
-      ],
-    );
-  }
-}
-*/
-class Noticia extends StatelessWidget {
+class CardShopWidget extends StatelessWidget {
   final Shop noticia;
   final int index;
 
-  const Noticia({@required this.noticia, @required this.index});
+  const CardShopWidget({@required this.noticia, @required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +20,10 @@ class Noticia extends StatelessWidget {
         _TarjetaBotones(),
         SizedBox(height: 10),
         Divider(),
+        Card(child: ListTile(title: Text('data'),),),
+        Card(child: ListTile(title: Text('data'),),),
+        Card(child: ListTile(title: Text('data'),),),
+        Card(child: ListTile(title: Text('data'),),)
       ],
     );
   }
@@ -112,7 +85,7 @@ class _TarjetaImagen extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
           child: GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/product',arguments: noticia),
+            onTap: () => Navigator.pushNamed(context, '/items',arguments: noticia),
             child: Container(
                 child: (noticia.imageUrl != null)
                     ? FadeInImage(

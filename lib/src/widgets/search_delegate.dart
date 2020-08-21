@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heron_delivery/src/models/pelicula_model.dart';
-import 'package:heron_delivery/src/providers/pelicula_provider.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
 
 class DataSearch extends SearchDelegate {
@@ -587,3 +585,4 @@ class DataSearch extends SearchDelegate {
   */
 
 }
+*/

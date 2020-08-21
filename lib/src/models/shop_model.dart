@@ -40,7 +40,7 @@ class Shop {
   factory Shop.fromJson(Map<String, dynamic> json, [String documentId = '']) =>
       Shop(
         shopId: documentId,
-        voteAverage:  json["voteAverage"],
+        voteAverage:  json["vote_average"],
         imageUrl: json["image_url"],
         logoUrl: json["logo_url"],
         name: json["name"],

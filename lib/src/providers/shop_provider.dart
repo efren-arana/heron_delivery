@@ -63,8 +63,8 @@ class ShopProvider extends ChangeNotifier {
     //print(snapshot.);
 
     //Obtengo la lista de producto y los almaceno de manera temporal en el mapa
-    List<Shop> shops = snapshot.documents.
-    map((doc) => Shop.fromJson(doc.data,doc.documentID)).
+    List<Shop> shops = snapshot.docs.
+    map((doc) => Shop.fromJson(doc.data(),doc.id)).
     toList();
 //print('==================================Response-Firebase==============================');
       //print(doc.data);

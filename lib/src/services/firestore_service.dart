@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:heron_delivery/src/models/product_model.dart';
+import 'package:heron_delivery/src/models/item_model.dart';
 import 'package:heron_delivery/src/models/shop_model.dart';
 
 class FirestoreService {
-  final Firestore _db = Firestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   final String path;
   CollectionReference ref;
@@ -15,7 +15,7 @@ class FirestoreService {
   //=========================Flutter — Firebase FireStore CRUD Operations Using Provider========
 
   Future<QuerySnapshot> getDataCollection() {
-    return ref.getDocuments();
+    return ref.get();
   }
 
   /// Obtengo los documetnso de la conleccion
@@ -23,7 +23,7 @@ class FirestoreService {
   /// el parametro filter es la categoria
   /// se filta usando el arrayContrains
   Future<QuerySnapshot> getDataCollectionByCategory(dynamic field,dynamic filter) {
-    return ref.where(field,arrayContains: filter).getDocuments();
+    return ref.where(field,arrayContains: filter).get();
   }
 
   Stream<QuerySnapshot> streamDataCollection() {
@@ -31,11 +31,11 @@ class FirestoreService {
   }
 
   Future<DocumentSnapshot> getDocumentById(String id) {
-    return ref.document(id).get();
+    return ref.doc(id).get();
   }
 
   Future<void> removeDocument(String id) {
-    return ref.document(id).delete();
+    return ref.doc(id).delete();
   }
 
   Future<DocumentReference> addDocument(Map data) {
@@ -43,25 +43,25 @@ class FirestoreService {
   }
 
   Future<void> updateDocument(Map data, String id) {
-    return ref.document(id).updateData(data);
+    return ref.doc(id).update(data);
   }
   //==============================================================================================
 
-  Future<void> saveProduct(Product product) {
+  Future<void> saveProduct(Item product) {
     return _db
         .collection('products')
-        .document(product.productId)
-        .setData(product.toMap());
+        .doc(product.productId)
+        .set(product.toMap());
   }
 
-  Stream<List<Product>> getProducts() {
+  Stream<List<Item>> getProducts() {
     return _db.collection('products').snapshots().map((snapshot) => snapshot
-        .documents
-        .map((document) => Product.fromFirestore(document.data))
+        .docs
+        .map((document) => Item.fromFirestore(document.data()))
         .toList());
   }
 
   Future<void> removeProduct(String productId) {
-    return _db.collection('products').document(productId).delete();
+    return _db.collection('products').doc(productId).delete();
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
 import 'dart:async';
 
-import 'package:heron_delivery/src/pages/login_screem.dart';
+import 'package:heron_delivery/src/pages/login_screem_page.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

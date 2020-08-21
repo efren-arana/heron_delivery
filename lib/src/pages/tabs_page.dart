@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heron_delivery/src/pages/body1_home_page.dart';
-import 'package:heron_delivery/src/pages/favorito_page.dart';
-import 'package:heron_delivery/src/pages/products_page.dart';
-import 'package:heron_delivery/src/widgets/menu_widget.dart';
-import 'package:heron_delivery/src/widgets/search_delegate.dart';
+import 'package:heron_delivery/src/pages/home_page.dart';
+import 'package:heron_delivery/src/widgets/drawer_menu_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:heron_delivery/src/utils/color_util.dart' as color;
+import 'package:heron_delivery/src/theme/app_colors.dart' as theme;
 
 class TabsPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,8 +16,8 @@ class TabsPage extends StatelessWidget {
       create: (_) => new _NavegacionModel(),
       child: Scaffold(
         key: _scaffoldKey,
-        drawerEnableOpenDragGesture: false,
-        drawer: MenuWidget(),
+        drawerEnableOpenDragGesture: true,
+        drawer: DrawerMenuWidget(),
         body: _Paginas(scaffoldKey: _scaffoldKey),
         bottomNavigationBar: _Navegacion(),
       ),
@@ -28,23 +25,25 @@ class TabsPage extends StatelessWidget {
   }
 }
 
+
 class _Navegacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
     return BottomNavigationBar(
+      
         iconSize: 20.0,
         onTap: (i) =>
             navegacionModel.paginaActual = i, //envio la referencia a la funcion
         currentIndex: navegacionModel.paginaActual,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: color.getColorYellowRGBO(),
-        selectedItemColor: color.getColorBlueHex(),
-        unselectedItemColor: color.getColorGrisRGBO(),
+        backgroundColor: theme.getColorYellowRGBO,
+        selectedItemColor: theme.getColorBlueHex,
+        unselectedItemColor: theme.getColorGrisRGBO,
         selectedFontSize: 15,
         unselectedFontSize: 13,
         showUnselectedLabels: true,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.home),
             title: Text('Home'),
@@ -74,10 +73,10 @@ class _Paginas extends StatelessWidget {
     return PageView(
       onPageChanged: (i) => navegacionModel.paginaActual = i,
       controller: navegacionModel.pageController,
-      physics: BouncingScrollPhysics(),
-      //physics: NeverScrollableScrollPhysics(),
+      //physics: BouncingScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        BodyHomePage(scaffoldKey: scaffoldKey),
+        HomePage(scaffoldKey: scaffoldKey),
       ],
     );
   }

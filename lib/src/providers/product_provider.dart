@@ -1,9 +1,9 @@
-import 'package:heron_delivery/src/models/product_model.dart';
+import 'package:heron_delivery/src/models/item_model.dart';
 import 'package:heron_delivery/src/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-export 'package:heron_delivery/src/models/product_model.dart';
+export 'package:heron_delivery/src/models/item_model.dart';
 
 class ProductProvider with ChangeNotifier {
   final firestoreService = FirestoreService('products');
@@ -27,7 +27,7 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  loadValues(Product product) {
+  loadValues(Item product) {
     _name = product.name;
     _price = product.price;
     _productId = product.productId;
@@ -36,12 +36,12 @@ class ProductProvider with ChangeNotifier {
   saveProduct() {
     print(_productId);
     if (_productId == null) {
-      var newProduct = Product(name: name, price: price, productId: uuid.v4());
+      var newProduct = Item(name: name, price: price, productId: uuid.v4());
       firestoreService.saveProduct(newProduct);
     } else {
       //Update
       var updatedProduct =
-          Product(name: name, price: _price, productId: _productId);
+          Item(name: name, price: _price, productId: _productId);
       firestoreService.saveProduct(updatedProduct);
     }
   }

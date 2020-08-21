@@ -4,7 +4,6 @@ import 'package:heron_delivery/src/providers/category_provider.dart';
 import 'package:heron_delivery/src/providers/shop_provider.dart';
 import 'package:heron_delivery/src/utils/icono_string_util.dart';
 import 'package:provider/provider.dart';
-import 'package:heron_delivery/src/utils/color_util.dart' as color;
 
 class ListCategoryWidget extends StatefulWidget {
   ListCategoryWidget({Key key}) : super(key: key);
@@ -26,8 +25,8 @@ class _ListCategoryWidgetState extends State<ListCategoryWidget> {
           stream: categoryProvider.fetchCategorysAsStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData) {
-              categories = snapshot.data.documents
-                  .map((doc) => Category.fromMap(doc.data, doc.documentID))
+              categories = snapshot.data.docs
+                  .map((doc) => Category.fromMap(doc.data(), doc.id))
                   .toList();
               return ListView.builder(
                 physics:

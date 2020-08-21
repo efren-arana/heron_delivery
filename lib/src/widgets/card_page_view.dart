@@ -1,6 +1,6 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:heron_delivery/src/models/pelicula_model.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
 
 class CardPageView extends StatelessWidget {
@@ -166,3 +166,4 @@ class CardPageView extends StatelessWidget {
     );
   }
 }
+*/

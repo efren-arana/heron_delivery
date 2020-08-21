@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/cached/prefs_user.dart';
-import 'package:heron_delivery/src/widgets/menu_widget.dart';
 
 class SettingsPage extends StatefulWidget {
   static final String routeName = 'settings';
@@ -41,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
           backgroundColor: (prefs.colorSecundario) ? Colors.teal : Colors.blue,
           title: Text('Ajustes'),
         ),
-        drawer: MenuWidget(),
+     //   drawer: MenuWidget(),
         body: ListView(
           children: <Widget>[
             Container(

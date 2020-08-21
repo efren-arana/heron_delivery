@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 
+///Tema global de la aplicacion
+final miTema = ThemeData(
+  // Define the default brightness and colors.
+  /*
+  brightness: Brightness.light,
+  primaryColor: Colors.lightBlue[800],
+  accentColor: Colors.cyan[600],
 
-///tema global de la aplicacion
-final miTema = ThemeData.dark().copyWith(accentColor: Colors.red);
+  // Define the default font family.
+  fontFamily: 'Georgia',
 
-/// Obtengo el color azul del diseno de la app
-Color getColorBlueHex = Color(0xFF0047BA);
-Color getColorBlueRGBO = Color.fromRGBO(0, 71, 186, 1.0);
-
-//color amarillo
-Color getColorYellowHex = Color(0xE3FFB71B);
-Color getColorYellowRGBO = Color.fromRGBO(255, 183, 27, 0.8902);
-
-//?color gris
-Color getColorGrisRGBO = Color.fromRGBO(99, 101, 105, 1.0);
-
+  // Define the default TextTheme. Use this to specify the default
+  // text styling for headlines, titles, bodies of text, and more.
+  textTheme: TextTheme(
+    headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+    headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+    bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+  ),
+  */
+);
 
 
-///Estilo de las fuentes
-TextStyle getFontAppBar = TextStyle(fontStyle: FontStyle.normal);
 
-//fuentes de heron
 
-//fuente de delovery

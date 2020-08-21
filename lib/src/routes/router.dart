@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:heron_delivery/src/pages/check_out_page.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
-import 'package:heron_delivery/src/pages/product_details.dart';
-import 'package:heron_delivery/src/pages/products_page.dart';
+import 'package:heron_delivery/src/pages/shopping_cart_page.dart';
 import 'package:heron_delivery/src/pages/tabs_page.dart';
 
 class Router {
@@ -9,12 +9,12 @@ class Router {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => TabsPage());
-      case 'home':
+      case '/home':
         return MaterialPageRoute(builder: (_) => HomePage());
-      //case 'product':
-      //  return MaterialPageRoute(builder: (_) => ProductsPage());
-      // case 'product_detail':
-      //  return MaterialPageRoute(builder: (_) => EditProduct());
+      case '/items':
+        return MaterialPageRoute(settings: settings, builder: (_) => ShoppingCartPage());
+       case '/checkout':
+        return MaterialPageRoute(builder: (_) => CheckoutPage());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

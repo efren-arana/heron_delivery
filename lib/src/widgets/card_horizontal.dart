@@ -1,9 +1,10 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/src/models/pelicula_model.dart';
+import 'package:heron_delivery/src/models/shop_model.dart';
 import 'package:heron_delivery/src/utils/color_util.dart' as color;
 
 class CardHorizontal extends StatelessWidget {
-  final List<Pelicula> peliculas;
+  final List<Shop> peliculas;
   final _scrollController = new ScrollController();
 
   final Function siguientePagina;
@@ -100,4 +101,6 @@ class CardHorizontal extends StatelessWidget {
       );
     }).toList();
   }
+  
 }
+*/

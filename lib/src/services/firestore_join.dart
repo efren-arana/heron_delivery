@@ -3,14 +3,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class JoinFiretoreService {
-  final Firestore _fireStore = Firestore.instance;    
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;    
 
 getWishList(wishlistId) async {
-  return await _fireStore.collection('wishlists').document(wishlistId).get();
+  return await _fireStore.collection('wishlists').doc(wishlistId).get();
 }
 
 getProduct(productId) async {
-  return await _fireStore.collection('product').document(productId).get();
+  return await _fireStore.collection('product').doc(productId).get();
 }
 /*
 Future<List<Product>>getProductsWishList(wishlistId) async {

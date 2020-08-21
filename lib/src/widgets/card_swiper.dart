@@ -1,3 +1,4 @@
+/*
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:heron_delivery/src/models/pelicula_model.dart';
 
 class CardSwiper extends StatelessWidget {
-  final List<Pelicula> peliculas;
+  final List<dynamic> peliculas;
 
   //constructor
   CardSwiper({@required this.peliculas});
@@ -48,3 +49,4 @@ class CardSwiper extends StatelessWidget {
     );
   }
 }
+*/
