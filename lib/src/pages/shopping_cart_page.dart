@@ -21,7 +21,7 @@ class ShoppingCartPage extends StatelessWidget {
                   isExtended: true,
                   icon: Icon(Icons.shopping_cart),
                   onPressed: () => Navigator.pushNamed(context, '/checkout'),
-                  label: Text('Ver carrito    \$${value.totalPrice}'),
+                  label: Text('Ver carrito    \$${value.subTotal}'),
                 );
                  },
               ),

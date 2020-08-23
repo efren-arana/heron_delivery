@@ -50,7 +50,7 @@ class FirestoreService {
   Future<void> saveProduct(Item product) {
     return _db
         .collection('products')
-        .doc(product.productId)
+        .doc(product.idItem)
         .set(product.toMap());
   }
 

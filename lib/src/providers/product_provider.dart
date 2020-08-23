@@ -30,18 +30,18 @@ class ProductProvider with ChangeNotifier {
   loadValues(Item product) {
     _name = product.name;
     _price = product.price;
-    _productId = product.productId;
+    _productId = product.idItem;
   }
 
   saveProduct() {
     print(_productId);
     if (_productId == null) {
-      var newProduct = Item(name: name, price: price, productId: uuid.v4());
+      var newProduct = Item(name: name, price: price, idItem: uuid.v4());
       firestoreService.saveProduct(newProduct);
     } else {
       //Update
       var updatedProduct =
-          Item(name: name, price: _price, productId: _productId);
+          Item(name: name, price: _price, idItem: _productId);
       firestoreService.saveProduct(updatedProduct);
     }
   }
