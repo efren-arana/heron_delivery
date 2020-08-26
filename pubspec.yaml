@@ -39,7 +39,8 @@ dependencies:
   # Provider Architecture
   provider: ^4.3.1
   
-
+  progress_dialog: ^1.2.4
+  
   #firebase dependecies
   firebase_core: ^0.5.0
   cloud_firestore: ^0.14.0+1

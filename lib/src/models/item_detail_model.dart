@@ -6,7 +6,8 @@ class LineItem {
   int _cantSelected = 1;
   double _total = 0.0;
   bool _selected = false;
-
+  String comentario = '';
+  double peso = 0.0;
   LineItem({@required this.item});
 
   String get idItem => item.idItem;

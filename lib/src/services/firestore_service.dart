@@ -4,7 +4,6 @@ import 'package:heron_delivery/src/models/shop_model.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-
   final String path;
   CollectionReference ref;
   

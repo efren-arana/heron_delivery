@@ -8,7 +8,7 @@ class DrawerMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: new ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
@@ -16,6 +16,11 @@ class DrawerMenuWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                new UserAccountsDrawerHeader(
+                  
+                  accountName: Text('accountName'), 
+                  accountEmail: Text('accountEmail')
+                  ),
                 CircleAvatar(
                   maxRadius: 30.0,
             child: Text('EA'),

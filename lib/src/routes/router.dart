@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:heron_delivery/src/pages/buy_page.dart';
 import 'package:heron_delivery/src/pages/check_out_page.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
-import 'package:heron_delivery/src/pages/order_detail_page.dart';
 import 'package:heron_delivery/src/pages/shopping_cart_page.dart';
 import 'package:heron_delivery/src/pages/tabs_page.dart';
 
@@ -14,9 +14,10 @@ class Router {
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/items':
         return MaterialPageRoute(settings: settings, builder: (_) => ShoppingCartPage());
-    
       case '/checkout':
         return MaterialPageRoute(builder: (_) => CheckoutPage());
+      case '/buy':
+        return MaterialPageRoute(settings: settings, builder: (_) => BuyPage());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

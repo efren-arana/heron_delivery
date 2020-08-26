@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heron_delivery/src/pages/order_detail_page.dart';
 import 'package:heron_delivery/src/providers/cart_provider.dart';
-import 'package:heron_delivery/src/services/transaction.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -55,8 +53,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     },
                   ),
                   floatingActionButton: FloatingActionButton(
-                    onPressed: ()  =>  MaterialPageRoute( builder: (_) => 
-                    OrderDetailPage(shopId: 'fn6npNA8Xm4TvuPKB2VE',cart: cart)))
+                    onPressed: ()  => Navigator.pushNamed(context, '/buy') )
 
                   );
       },

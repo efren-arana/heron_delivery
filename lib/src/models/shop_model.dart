@@ -48,7 +48,7 @@ class Shop {
         location: json["location"],
         categories: List<String>.from(json["categories"].map((x) => x)),
         telefono: json["telefono"],
-        direction: Direction.fromJson(json["direction"]),
+        direction: Direction.fromJson(json["shop_address"]),
         status: json["status"],
       );
 
@@ -78,10 +78,10 @@ class Direction {
   String ciudad;
 
   factory Direction.fromJson(Map<String, dynamic> json) => Direction(
-      calleSecundaria: json["calle secundaria"],
-      callePrincipal: json["calle principal"],
-      referencia: json["referencia"],
-      ciudad: json["ciudad"]);
+      calleSecundaria: json["secundary_street"],
+      callePrincipal: json["main_street"],
+      referencia: json["reference"],
+      ciudad: json["city"]);
 
   Map<String, dynamic> toJson() => {
         "calle secundaria": calleSecundaria,
