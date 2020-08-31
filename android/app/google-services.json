@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "734190231601-s2qktkupjgk4ul1q61s1ospnpi2guift.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eaflutter.heron_delivery",
+            "certificate_hash": "16afff502f6fe42705fec0cae9c783506808060d"
+          }
+        },
+        {
           "client_id": "734190231601-5tvjjvq0d5abk9igu8u26sdqmb6kitai.apps.googleusercontent.com",
           "client_type": 3
         }

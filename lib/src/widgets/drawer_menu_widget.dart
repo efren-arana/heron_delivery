@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
+import 'package:heron_delivery/src/pages/login_screem_page.dart';
 import 'package:heron_delivery/src/pages/settings_page.dart';
 
 class DrawerMenuWidget extends StatelessWidget {
@@ -37,6 +38,17 @@ class DrawerMenuWidget extends StatelessWidget {
                     image: AssetImage('assets/img/drawer_menu-img.jpg'),
                     fit: BoxFit.cover)), 
           ),
+          ListTile(
+            leading: Icon(Icons.input),
+            title: Text('Login'),
+            trailing: _trailing,
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => LoginScreen()
+                        ));
+            },
+          ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.account_box),
             title: Text('Perfil'),
