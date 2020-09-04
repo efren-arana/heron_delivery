@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:heron_delivery/src/models/item_model.dart';
-import 'package:heron_delivery/src/models/shop_model.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -9,6 +8,20 @@ class FirestoreService {
   
   FirestoreService(this.path) {
     ref = _db.collection(path);
+  }
+
+  //Metodo que registra un documento en la coleccion
+  // estableciendo un id
+  Future setDocument(String id,Map data) async {
+    try {
+      await ref.doc(id).set(data);
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  Future<DocumentSnapshot> getDocumentById(String id) {
+    return ref.doc(id).get();
   }
 
   //=========================Flutter — Firebase FireStore CRUD Operations Using Provider========
@@ -29,13 +42,12 @@ class FirestoreService {
     return ref.where('status',isEqualTo: "A").snapshots();
   }
 
-  Future<DocumentSnapshot> getDocumentById(String id) {
-    return ref.doc(id).get();
-  }
+  
 
   Future<void> removeDocument(String id) {
     return ref.doc(id).delete();
   }
+  
 
   Future<DocumentReference> addDocument(Map data) {
     return ref.add(data);

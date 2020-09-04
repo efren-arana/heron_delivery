@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/pages/buy_page.dart';
 import 'package:heron_delivery/src/pages/check_out_page.dart';
 import 'package:heron_delivery/src/pages/home_page.dart';
+import 'package:heron_delivery/src/pages/login_view.dart';
 import 'package:heron_delivery/src/pages/shopping_cart_page.dart';
+import 'package:heron_delivery/src/pages/signup_view.dart';
 import 'package:heron_delivery/src/pages/tabs_page.dart';
+import 'package:heron_delivery/src/utils/route_names.dart' as routes;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case routes.RootPageRoute:
         return MaterialPageRoute(builder: (_) => TabsPage());
-      case '/home':
+      case routes.HomePageRoute:
         return MaterialPageRoute(builder: (_) => HomePage());
+      case routes.LoginPageRoute:
+        return MaterialPageRoute(builder: (_) => LoginView());
+      case routes.SignUpPageRoute:
+        return MaterialPageRoute(builder: (_) => SignUpView());
       case '/items':
         return MaterialPageRoute(settings: settings, builder: (_) => ShoppingCartPage());
       case '/checkout':

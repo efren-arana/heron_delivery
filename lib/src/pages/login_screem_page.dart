@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
           //This callback would gets called when verification is done auto maticlly
         },
         verificationFailed: (FirebaseAuthException exception) {
-          print(exception);
+          print('Exception:******************************\n$exception');
         },
         codeSent: (String verificationId, [int forceResendingToken]) {
           showDialog(

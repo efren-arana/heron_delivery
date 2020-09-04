@@ -6,7 +6,6 @@ import 'package:heron_delivery/src/widgets/sliver_list_widget.dart';
 class HomePage extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   HomePage({Key key, this.scaffoldKey}) : super(key: key);
-
   //GlobalKey<ScaffoldState> get scaffoldkey => this._scaffoldKey;
 
   @override
@@ -15,6 +14,8 @@ class HomePage extends StatefulWidget {
 
 class _BodyHomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+  
+  
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -38,6 +39,7 @@ class _SliverAppBar extends StatelessWidget {
     Key key,
     @required this.widget,
   }) : super(key: key);
+
 
   final HomePage widget;
 
