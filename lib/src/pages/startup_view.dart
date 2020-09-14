@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/pages/login_view.dart';
 import 'package:heron_delivery/src/pages/tabs_page.dart';
 import 'package:heron_delivery/src/services/authentication_service.dart';
+import 'package:heron_delivery/src/services/navigation_service.dart';
+import 'package:heron_delivery/src/utils/route_names.dart';
+import 'package:provider/provider.dart';
 
 import '../../locator.dart';
 
@@ -15,6 +18,7 @@ class StartUpView extends StatefulWidget {
 class _StartUpViewState extends State<StartUpView> {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
+  //final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   void initState() {
@@ -29,19 +33,15 @@ class _StartUpViewState extends State<StartUpView> {
   }
 
   void _navigateToHome() {
-     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (BuildContext context) => TabsPage()
-      )
-    );
+    //_navigationService.navigateTopushReplacementNamed(RouteTabPage);
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => TabsPage()));
   }
 
   void _navigateToLogin() {
-     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (BuildContext context) => LoginView()
-      )
-    );
+    //_navigationService.navigateTopushReplacementNamed(RouteLoginPage);
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => LoginView()));
   }
 
   @override

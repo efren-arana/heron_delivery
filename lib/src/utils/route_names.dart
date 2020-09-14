@@ -1,4 +1,4 @@
-const String LoginPageRoute = "/login";
-const String SignUpPageRoute = "/signup";
-const String HomePageRoute = "/home";
-const String RootPageRoute = "/";
+const String RouteLoginPage = "/login";
+const String RouteSignUpPage = "/signup";
+const String RouteHomePage = "/home";
+const String RouteTabPage = "/tab";

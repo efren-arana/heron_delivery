@@ -50,22 +50,15 @@ class MyApp extends StatelessWidget {
         StreamProvider(create: (context) => firestoreService.getProducts()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => Cart()),
-        ChangeNotifierProvider(create: (context) => SignUpViewModel()),
-        ChangeNotifierProvider(create: (context) => LoginViewModel()),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (_) => ShopProvider())
       ],
       child: MaterialApp(
         title: 'Heron Delivery',
-        navigatorKey: locator<NavigationService>().navigationKey,
-        builder: (context, child) => Navigator(
-          key: locator<DialogService>().dialogNavigationKey,
-          onGenerateRoute: (settings) => MaterialPageRoute(
-          builder: (context) => DialogManager(child: child)),
-        ),
+        //navigatorKey: locator<NavigationService>().navigationKey,
         theme: miTema,
         debugShowCheckedModeBanner: false,
-        //initialRoute: routes.RootPageRoute,
+        initialRoute: '/',
         home: StartUpView(),
         onGenerateRoute: Router.generateRoute,
       ),

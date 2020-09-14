@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:heron_delivery/src/models/item_detail_model.dart';
 import 'package:heron_delivery/src/pages/order_detail_page.dart';
 import 'package:heron_delivery/src/providers/cart_provider.dart';
+import 'package:heron_delivery/src/utils/route_names.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,8 @@ class _BuyPageState extends State<BuyPage> {
         child: Center(
           child: RaisedButton(
               onPressed: () {
-                createAlertDialog(context, cart);
+                Navigator.of(context).pushReplacementNamed(RouteTabPage);
+                //createAlertDialog(context, cart);
               },
               child: Text('Pedir')),
         ),
@@ -90,7 +92,7 @@ class _BuyPageState extends State<BuyPage> {
         FirebaseFirestore.instance.collection('shops').doc('/$shopId');
 
     //ejecuto la transaccion
-    
+
     return FirebaseFirestore.instance.runTransaction((transaction) async {
       //=================================================
       //(1) Validar el status de la tienda.

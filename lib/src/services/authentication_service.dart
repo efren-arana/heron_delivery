@@ -63,7 +63,7 @@ class AuthenticationService {
   }
 
   Future<bool> isUserLoggedIn() async {
-    Future.delayed(Duration(milliseconds: 6000), () {});
+    await Future.delayed(Duration(milliseconds: 3000), () {});
     var user = _firebaseAuth.currentUser;
     // Populate the user information
     await _populateCurrentUser(user);
@@ -82,7 +82,7 @@ class AuthenticationService {
     _navigationService.pop();
     _firebaseAuth.signOut().
     whenComplete(() => _navigationService.
-      navigateTopushReplacementNamed(routes.LoginPageRoute)
+      navigateTopushReplacementNamed(routes.RouteLoginPage)
       );
   }
 }

@@ -11,13 +11,13 @@ import 'package:heron_delivery/src/utils/route_names.dart' as routes;
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case routes.RootPageRoute:
+      case routes.RouteTabPage:
         return MaterialPageRoute(builder: (_) => TabsPage());
-      case routes.HomePageRoute:
+      case routes.RouteHomePage:
         return MaterialPageRoute(builder: (_) => HomePage());
-      case routes.LoginPageRoute:
+      case routes.RouteLoginPage:
         return MaterialPageRoute(builder: (_) => LoginView());
-      case routes.SignUpPageRoute:
+      case routes.RouteSignUpPage:
         return MaterialPageRoute(builder: (_) => SignUpView());
       case '/items':
         return MaterialPageRoute(settings: settings, builder: (_) => ShoppingCartPage());

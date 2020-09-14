@@ -56,7 +56,7 @@ class DrawerMenuWidget extends StatelessWidget {
             title: Text('Sign'),
             trailing: _trailing,
             onTap: () {
-              Navigator.pushNamed(context, routes.SignUpPageRoute);
+              Navigator.pushNamed(context, routes.RouteSignUpPage);
             },
           ),
           Divider(),
@@ -65,7 +65,7 @@ class DrawerMenuWidget extends StatelessWidget {
             title: Text('Login'),
             trailing: _trailing,
             onTap: () {
-              Navigator.pushNamed(context, routes.LoginPageRoute);
+              Navigator.pushNamed(context, routes.RouteLoginPage);
             },
           ),
           Divider(),

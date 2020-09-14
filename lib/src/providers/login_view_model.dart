@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:heron_delivery/src/services/authentication_service.dart';
 import 'package:heron_delivery/src/services/dialog_service.dart';
@@ -11,7 +10,7 @@ import 'base_model.dart';
 class LoginViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  final DialogService _dialogService = locator<DialogService>();
+  //final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future login({
@@ -29,22 +28,25 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTopushReplacementNamed(routes.RootPageRoute);
+        _navigationService.navigateTopushReplacementNamed(routes.RouteTabPage);
+        return true;
       } else {
-        await _dialogService.showDialog(
-          title: 'Login Failure',
-          description: 'General login failure. Please try again later',
-        );
+        return result;
+        //await _dialogService.showDialog(
+        //  title: 'Login Failure',
+        //  description: 'General login failure. Please try again later',
+        //);
       }
     } else {
-      await _dialogService.showDialog(
-        title: 'Login Failure',
-        description: result,
-      );
+      return result;
+      //await _dialogService.showDialog(
+      //  title: 'Login Failure',
+      //  description: result,
+      //);
     }
   }
 
-  Future navigateToSignPage(){
-    return _navigationService.navigateTo(routes.SignUpPageRoute);
+  Future navigateToSignPage() {
+    return _navigationService.navigateTo(routes.RouteSignUpPage);
   }
 }

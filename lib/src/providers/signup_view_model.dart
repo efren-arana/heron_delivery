@@ -39,7 +39,7 @@ class SignUpViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTopushReplacementNamed(routes.RootPageRoute);
+        _navigationService.navigateTopushReplacementNamed(routes.RouteTabPage);
       } else {
         await _dialogService.showDialog(
           title: 'Sign Up Failure',
