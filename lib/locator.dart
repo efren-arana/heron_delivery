@@ -1,7 +1,7 @@
-import 'package:heron_delivery/src/services/authentication_service.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heron_delivery/src/services/dialog_service.dart';
-import 'package:heron_delivery/src/services/navigation_service.dart';
+import 'core/services/authentication_service.dart';
+import 'core/services/dialog_service.dart';
+import 'core/services/navigation_service.dart';
 
 
 GetIt locator = GetIt.instance;

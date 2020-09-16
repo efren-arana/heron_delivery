@@ -1,21 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:heron_delivery/src/pages/startup_view.dart';
-import 'package:heron_delivery/src/providers/cart_provider.dart';
-import 'package:heron_delivery/src/providers/category_provider.dart';
-import 'package:heron_delivery/src/providers/login_view_model.dart';
-import 'package:heron_delivery/src/providers/product_provider.dart';
-import 'package:heron_delivery/src/providers/shop_provider.dart';
-import 'package:heron_delivery/src/providers/signup_view_model.dart';
-import 'package:heron_delivery/src/routes/router.dart';
-import 'package:heron_delivery/src/services/dialog_service.dart';
-import 'package:heron_delivery/src/services/firestore_service.dart';
-import 'package:heron_delivery/src/services/navigation_service.dart';
-import 'package:heron_delivery/src/shared/dialog_manager.dart';
-import 'package:heron_delivery/src/theme/tema.dart';
+import 'package:heron_delivery/router.dart';
+import 'package:heron_delivery/core/constants/theme/theme.dart';
+import 'package:heron_delivery/ui/views/startup_view.dart';
 import 'package:provider/provider.dart';
-
+import 'core/providers/cart_provider.dart';
+import 'core/providers/category_provider.dart';
+import 'core/providers/product_provider.dart';
+import 'core/providers/shop_provider.dart';
+import 'core/services/firestore_service.dart';
 import 'locator.dart';
 
 void main() async {
@@ -39,7 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firestoreService = FirestoreService('shops');
+    //final firestoreService = FirestoreService('shops');
     // Establece el color de la barra de notificaciones
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
@@ -47,7 +42,7 @@ class MyApp extends StatelessWidget {
     // This widget is the root of your application.
     return MultiProvider(
       providers: [
-        StreamProvider(create: (context) => firestoreService.getProducts()),
+        //StreamProvider<User>(create: (context) => firestoreService.getProducts()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => Cart()),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
