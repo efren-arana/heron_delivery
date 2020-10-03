@@ -4,7 +4,6 @@ import 'package:heron_delivery/core/providers/signup_view_model.dart';
 import 'package:heron_delivery/ui/shared/ui_helpers.dart';
 import 'package:heron_delivery/ui/widgets/busy_button.dart';
 import 'package:heron_delivery/ui/widgets/expansion_list.dart';
-import 'package:heron_delivery/ui/widgets/input_field.dart';
 import 'package:provider/provider.dart';
 
 class SignUpView extends StatelessWidget {
@@ -18,6 +17,7 @@ class SignUpView extends StatelessWidget {
       create: (context) => SignUpViewModel(),
       child: Consumer<SignUpViewModel>(
         builder: (context, model, child) => Scaffold(
+          /*
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: Column(
@@ -75,6 +75,7 @@ class SignUpView extends StatelessWidget {
               ],
             ),
           ),
+          */
         ),
       ),
     );

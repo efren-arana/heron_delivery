@@ -50,26 +50,26 @@ class _StartUpViewState extends State<StartUpView> {
     //valido si el usuario esta loggeado
     //lo dirigo a otra pagina
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Center(
-          child: CircularProgressIndicator(
-          strokeWidth: 3.0,
-          valueColor: AlwaysStoppedAnimation(
-            getColorBlueHex
-           ),
-              ),
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            child:
+            Image.asset('assets/img/heron_delivery.png',
+              fit: BoxFit.fitWidth,
             )
-               //Image.asset(
-               //  'assets/img/heron_delivery.png',
-               //  height: screenWidthFraction(context),
-               //  width: screenWidthFraction(context,dividedBy: 2),
-               //  fit: BoxFit.cover,
-               //  alignment: Alignment.center,
-               //  ),
-        )
+          ),
+          Center(
+            child: CircularProgressIndicator(
+            strokeWidth: 3.0,
+            valueColor: AlwaysStoppedAnimation(
+              getColorBlueHex
+             ),
+            ),
+          )
+        ],
+      )
     );
   }
 }

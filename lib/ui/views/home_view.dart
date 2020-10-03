@@ -21,7 +21,7 @@ class _HomeViewState extends State<HomeView>
     super.build(context);
 
     return Scaffold(
-        body: CustomScrollView(
+      body: CustomScrollView(
       slivers: <Widget>[
         _SliverAppBar(widget: widget),
         ListCategoryWidget(),
@@ -67,13 +67,13 @@ class _SliverAppBar extends StatelessWidget {
       expandedHeight: 210.0,
       flexibleSpace: FlexibleSpaceBar(
         //background: MyFlexiableAppBar(),
-        background: FadeInImage(
-          placeholder: AssetImage('assets/img/loading.gif'),
-          image: AssetImage(
-              'assets/img/sliver_app_bar.png'), //colacar la imagen de fonde de la tienda
-          fit: BoxFit.contain,
-          fadeInDuration: Duration(seconds: 1),
-        ),
+        //background: FadeInImage(
+        //  placeholder: AssetImage('assets/img/loading.gif'),
+        //  image: AssetImage(
+        //      'assets/img/sliver_app_bar.png'), //colacar la imagen de fonde de la tienda
+        //  fit: BoxFit.contain,
+        //  fadeInDuration: Duration(seconds: 1),
+        //),
       ),
     );
   }
