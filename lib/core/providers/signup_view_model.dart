@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:heron_delivery/core/services/authentication_service.dart';
 import 'package:heron_delivery/core/services/dialog_service.dart';
@@ -28,16 +27,14 @@ class SignUpViewModel extends BaseModel {
     @required String password,
     @required String fullName,
   }) async {
-    setBusy(true);
-
+    busy = true;
     var result = await _authenticationService.signUpWithEmail(
         email: email,
         password: password,
         fullName: fullName,
         role: _selectedRole);
 
-    setBusy(false);
-
+    busy = false;
     if (result is bool) {
       if (result) {
         _navigationService.navigateTopushReplacementNamed(routes.RouteTabView);

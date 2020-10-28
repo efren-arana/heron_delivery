@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:heron_delivery/router.dart';
+import 'package:heron_delivery/router.dart' as routes;
 import 'package:heron_delivery/core/constants/theme/theme.dart';
 import 'package:heron_delivery/ui/views/startup_view.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ import 'core/providers/cart_provider.dart';
 import 'core/providers/category_provider.dart';
 import 'core/providers/product_provider.dart';
 import 'core/providers/shop_provider.dart';
-import 'core/services/firestore_service.dart';
+import 'core/services/navigation_service.dart';
 import 'locator.dart';
 
 void main() async {
@@ -50,12 +49,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Heron Delivery',
-        //navigatorKey: locator<NavigationService>().navigationKey,
+        navigatorKey: locator<NavigationService>().navigationKey,
         theme: miTema,
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         home: StartUpView(),
-        onGenerateRoute: Router.generateRoute,
+        onGenerateRoute: routes.Router.generateRoute,
       ),
     );
   }

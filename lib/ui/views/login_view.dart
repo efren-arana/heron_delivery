@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
-import 'package:heron_delivery/core/providers/login_view_model.dart';
+import 'package:heron_delivery/core/services/form_service.dart';
+import 'package:heron_delivery/core/viewmodels/login_view_model.dart';
+import 'package:heron_delivery/locator.dart';
 import 'package:heron_delivery/ui/shared/ui_helpers.dart';
-import 'package:heron_delivery/ui/widgets/busy_button.dart';
 import 'package:provider/provider.dart';
-import 'package:heron_delivery/core/constants/theme/theme.dart';
+import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
+
+
 
 class LoginView extends StatefulWidget {
   @override
@@ -13,8 +15,11 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final FormService _formKeyService = locator<FormService>();
   bool _visiblepwd = false;
+  String _email;
+  String _password;
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -24,8 +29,7 @@ class _LoginViewState extends State<LoginView> {
           body: Stack(
             children: [
               _crearFondo(context), 
-              _loginForm(context)
-              ],
+              _loginForm(context)],
           )),
     );
   }
@@ -35,17 +39,14 @@ class _LoginViewState extends State<LoginView> {
     final size = MediaQuery.of(context).size;
     //Image de la cabecera
     final headerImage = SafeArea(
-      child: Container(
-        width: double.infinity,
-        height: size.height * 0.2,
-        padding: EdgeInsets.only(top: 80.0),
-        child: Image.asset(
-          'assets/img/heron.png',
-          fit: BoxFit.fitWidth,
-        ))
-      );
-    
-    
+        child: Container(
+            width: double.infinity,
+            height: size.height * 0.2,
+            child: Image.asset(
+              'assets/img/heron.png',
+              fit: BoxFit.fitWidth,
+            )));
+
     //clipper design de la curva
     final clipPath = ClipPath(
       clipper: _BackgroundClipper(),
@@ -54,7 +55,10 @@ class _LoginViewState extends State<LoginView> {
         height: size.width * 0.35,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[getColorYellowRGBO, getColorYellowGradient],
+            colors: <Color>[
+              theme.getColorYellowRGBO,
+              theme.getColorYellowGradient
+            ],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -62,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
 
-    //Columna que tiene la iamgen de cabecera y la curba en la parte inferior
+    //Columna que tiene la iamgen de cabecera y la curva en la parte inferior
     return Column(
       children: [
         Align(alignment: Alignment.topCenter, child: headerImage),
@@ -77,19 +81,23 @@ class _LoginViewState extends State<LoginView> {
         MediaQuery.of(context).size; //obtengo el tamanio de la pantalla
 
     return Consumer<LoginViewModel>(
-      builder: (context,model,child) => SingleChildScrollView(
+      builder: (context, model, child) => 
+      (model.busy) 
+      ?  child
+      : SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SafeArea(
               child: Container(
-                height: size.height * 0.2,
+                height: size.height * 0.15,
               ),
             ),
             Container(
+              height: size.height * 0.5,
               width: size.width * 0.80,
               margin: EdgeInsets.symmetric(vertical: 20.0),
-              padding: EdgeInsets.symmetric(vertical: 25.0),
+              padding: EdgeInsets.symmetric(vertical: 10.0),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5.0),
@@ -100,29 +108,43 @@ class _LoginViewState extends State<LoginView> {
                         offset: Offset(0.0, 5.0),
                         spreadRadius: 3.0)
                   ]),
-              child: Form(
-                autovalidate: true,
-                key: formKey,
-                child: Column(
-                  children: <Widget>[
-                    Text('Iniciar sesion', style: TextStyle(fontSize: 20.0)),
-                    verticalSpaceMedium,
-                    _inputEmail(model),
-                    verticalSpaceMedium,
-                    _inputPwd(model),
-                    verticalSpaceMedium,
-                    _submitButton(model),
-                    verticalSpaceSmall,
-                  ],
+              child: Center(
+                child: Form(
+                  key: _formKeyService.formKey,
+                  onChanged: () => model.validateForm(),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Iniciar sesion', style: theme.subHeaderStyle),
+                      verticalSpaceMedium,
+                      _inputEmail(model),
+                      verticalSpaceMedium,
+                      _inputPwd(model),
+                      verticalSpaceMedium,
+                      verticalSpaceMedium,
+                      _submitButton(model),
+                    ],
+                  ),
                 ),
               ),
             ),
-            _faceboolButton(model),
+            verticalSpaceSmall,
+            _facebooklButton(model),
+             verticalSpaceSmall,
             _registerLink(model),
-            SizedBox(height: size.height * 0.3)
           ],
         ),
       ),
+      child: Center(
+            child: CircularProgressIndicator(
+            strokeWidth: 3.0,
+            valueColor: AlwaysStoppedAnimation(
+              theme.getColorBlueHex
+             ),
+            ),
+          ),
     );
   }
 
@@ -131,14 +153,14 @@ class _LoginViewState extends State<LoginView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 7.0),
       child: TextFormField(
-        onSaved: (value) => null,
+        onSaved: (value) => _email = value,
         validator: model.validateEmail,
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'ejemplo@correo.com',
-          icon: FaIcon(Icons.email, color: getColorBlueRGBO),
+          hintText: 'example@correo.com',
+          icon: FaIcon(Icons.email, color: theme.getColorBlueRGBO),
           labelText: 'Email',
           helperText: 'example@example.com',
           suffixIcon: Icon(Icons.alternate_email),
@@ -152,13 +174,13 @@ class _LoginViewState extends State<LoginView> {
       padding: const EdgeInsets.symmetric(horizontal: 7.0),
       child: TextFormField(
         obscureText: !_visiblepwd,
-        onSaved: (value) => null,
+        onSaved: (value) => _password = value,
         validator: model.validatePwd,
         autofocus: false,
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          icon: FaIcon(Icons.lock_outline, color: getColorBlueRGBO),
+          icon: FaIcon(Icons.lock_outline, color: theme.getColorBlueRGBO),
           labelText: 'Password',
           suffixIcon: GestureDetector(
               onTap: () => setState(() {
@@ -178,25 +200,38 @@ class _LoginViewState extends State<LoginView> {
     return RaisedButton(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: Text('Ingresar'),
+          child: Text(
+            'Login',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         elevation: 0.0,
-        color: getColorBlueRGBO,
-        onPressed: model.);
+        color: (model.formValidated)
+        ? theme.getColorBlueHex
+        : Color.fromRGBO(99, 101, 105, 0.4),
+        onPressed: () {
+          if (model.formValidated) {
+            //salva los valores de todos los campos del formulario
+            _formKeyService.save();
+            model.submitForm(email: _email, password: _password);
+          }
+        });
   }
 
-  Widget _faceboolButton(LoginViewModel model) {
+  Widget _facebooklButton(LoginViewModel model) {
     return RaisedButton.icon(
-      icon: FaIcon(FontAwesomeIcons.facebook),
+        textColor: Colors.white,
+        icon: FaIcon(FontAwesomeIcons.facebook,color: Colors.white,),
         label: Container(
-          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: Text('Continuar con Facebook'),
+          
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+          child: Center(child: Text('Continuar con Facebook')),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         elevation: 0.0,
-        color: facebookColor,
-        onPressed: null);
+        color: theme.facebookColor,
+        onPressed: ( )=> model.loginFacebook());
   }
 
   Widget _registerLink(LoginViewModel model) {
@@ -205,15 +240,13 @@ class _LoginViewState extends State<LoginView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('No tienes cuenta?\u0020'),
+          Text('No tienes cuenta?\u0020\u0020\u0020\u0020'),
           GestureDetector(
-            onTap: null,
-            child: Text(
-              'Registrate',
-              style:
-              TextStyle(color: getColorBlueRGBO, fontWeight: FontWeight.bold),
-          )
-    ),
+              onTap: ()=> model.navigateToSignPage(),
+              child: Text(
+                'Registrate',
+                style: theme.textLink),
+              ),
         ],
       ),
     );

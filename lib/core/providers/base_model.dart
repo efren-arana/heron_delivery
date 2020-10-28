@@ -7,7 +7,7 @@ abstract class BaseModel extends ChangeNotifier {
   bool _busy = false;
   bool get busy => _busy;
 
-  void setBusy(bool value) {
+  set busy(bool value) {
     _busy = value;
     notifyListeners();
   }
