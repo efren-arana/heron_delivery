@@ -1,55 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/core/models/dialog_models.dart';
-import 'package:heron_delivery/core/services/dialog_service.dart';
+import 'package:heron_delivery/core/services/navigation_service.dart';
 
 import '../../locator.dart';
 
+NavigationService _navigationService = locator<NavigationService>();
 
-class DialogManager extends StatefulWidget {
-  final Widget child;
-  DialogManager({Key key, this.child}) : super(key: key);
-
-  _DialogManagerState createState() => _DialogManagerState();
-}
-
-class _DialogManagerState extends State<DialogManager> {
-  DialogService _dialogService = locator<DialogService>();
-
-  @override
-  void initState() {
-    super.initState();
-    _dialogService.registerDialogListener(_showDialog);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
-
-  void _showDialog(DialogRequest request) {
-    var isConfirmationDialog = request.cancelTitle != null;
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(request.title),
-              content: Text(request.description),
-              actions: <Widget>[
-                if (isConfirmationDialog)
-                  FlatButton(
-                    child: Text(request.cancelTitle),
-                    onPressed: () {
-                      _dialogService
-                          .dialogComplete(DialogResponse(confirmed: false));
-                    },
-                  ),
-                FlatButton(
-                  child: Text(request.buttonTitle),
-                  onPressed: () {
-                    _dialogService
-                        .dialogComplete(DialogResponse(confirmed: true));
-                  },
-                ),
-              ],
-            ));
-  }
+/// Metodo que muestra un dialogo con los parametros que recibe
+Future<void> showMyDialog(String title, String description) async {
+  return showDialog<void>(
+    context: _navigationService.navigationKey.currentContext,
+    barrierDismissible: true, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(description),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Ok'),
+            onPressed: () {
+              _navigationService.pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

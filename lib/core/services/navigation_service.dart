@@ -4,7 +4,7 @@ class NavigationService {
   GlobalKey<NavigatorState> _navigationKey = GlobalKey<NavigatorState>();
 
   GlobalKey<NavigatorState> get navigationKey => _navigationKey;
-
+  
   void pop() {
     return _navigationKey.currentState.pop();
   }
@@ -13,8 +13,17 @@ class NavigationService {
     return _navigationKey.currentState
         .pushNamed(routeName, arguments: arguments);
   }
-  Future<dynamic> navigateTopushReplacementNamed(String routeName, {dynamic arguments}) {
+
+  Future<dynamic> navigateTopushReplacementNamed(String routeName,
+      {dynamic arguments}) {
     return _navigationKey.currentState
         .pushReplacementNamed(routeName, arguments: arguments);
+  }
+
+  Future<dynamic> navigateToPopAndPushNamed(String routeName,
+      {dynamic arguments}) {
+    _navigationKey.currentState.pop();
+    return _navigationKey.currentState
+        .popAndPushNamed(routeName, arguments: arguments);
   }
 }

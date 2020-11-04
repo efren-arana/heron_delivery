@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/core/services/authentication_service.dart';
 import 'package:heron_delivery/core/constants/route_names.dart' as routes;
+import 'package:heron_delivery/core/services/i_auth_service.dart';
 import 'package:heron_delivery/ui/views/auth_phone_view.dart';
 import 'package:heron_delivery/ui/views/settings_view.dart';
 
@@ -9,8 +10,8 @@ import '../../locator.dart';
 
 class DrawerMenuWidget extends StatelessWidget {
   final _trailing = Icon(Icons.arrow_forward_ios);
-  final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
+  final IAuthService _authenticationService =
+      locator<AuthServiceFirebase>();
   @override
   Widget build(BuildContext context) {
     return Drawer(

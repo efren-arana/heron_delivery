@@ -5,17 +5,17 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final String path;
   CollectionReference ref;
-  
+
   FirestoreService(this.path) {
-    ref = _db.
-    collection(path);
+    ref = _db.collection(path);
   }
 
   //Metodo que registra un documento en la coleccion
   // estableciendo un id
-  Future setDocument(String id,Map data) async {
+  Future setDocument(String id, Map data) async {
     try {
       await ref.doc(id).set(data);
+      return true;
     } catch (e) {
       return e.message;
     }
@@ -35,20 +35,18 @@ class FirestoreService {
   /// Filtrando por categoria
   /// el parametro filter es la categoria
   /// se filta usando el arrayContrains
-  Future<QuerySnapshot> getDataCollectionByCategory(dynamic field,dynamic filter) {
-    return ref.where(field,arrayContains: filter).get();
+  Future<QuerySnapshot> getDataCollectionByCategory(
+      dynamic field, dynamic filter) {
+    return ref.where(field, arrayContains: filter).get();
   }
 
   Stream<QuerySnapshot> streamDataCollection() {
-    return ref.where('status',isEqualTo: "A").snapshots();
+    return ref.where('status', isEqualTo: "A").snapshots();
   }
-
-  
 
   Future<void> removeDocument(String id) {
     return ref.doc(id).delete();
   }
-  
 
   Future<DocumentReference> addDocument(Map data) {
     return ref.add(data);
@@ -60,10 +58,7 @@ class FirestoreService {
   //==============================================================================================
 
   Future<void> saveProduct(Item product) {
-    return _db
-        .collection('products')
-        .doc(product.idItem)
-        .set(product.toMap());
+    return _db.collection('products').doc(product.idItem).set(product.toMap());
   }
 
   Stream<List<Item>> getProducts() {

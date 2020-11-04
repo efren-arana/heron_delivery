@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/constants/theme/theme.dart';
 import 'package:heron_delivery/core/services/authentication_service.dart';
+import 'package:heron_delivery/core/services/i_auth_service.dart';
 import 'package:heron_delivery/ui/views/login_view.dart';
 
 import 'package:heron_delivery/ui/views/tabs_view.dart';
@@ -15,8 +16,8 @@ class StartUpView extends StatefulWidget {
 }
 
 class _StartUpViewState extends State<StartUpView> {
-  final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
+  final IAuthService _authenticationService =
+      locator<AuthServiceFirebase>();
   //final NavigationService _navigationService = locator<NavigationService>();
 
   @override
