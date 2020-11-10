@@ -1,7 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:heron_delivery/core/models/user_model.dart';
 
 abstract class IAuthService {
+
+  
+  UserModel get currentUser => null;
   ///Metodo que realiza la autenticacion por correo
   ///Utiliza firebase_auth para realizar la autenticacion
   Future loginWithEmail({

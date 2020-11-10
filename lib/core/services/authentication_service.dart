@@ -18,6 +18,8 @@ class AuthServiceFirebase implements IAuthService {
   final NavigationService _navigationService = locator<NavigationService>();
 
   UserModel _currentUser;
+
+  @override
   UserModel get currentUser => _currentUser;
 
   ///Metodo que realiza la autenticacion por correo

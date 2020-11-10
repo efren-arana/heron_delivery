@@ -1,35 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:heron_delivery/core/viewmodels/tabs_view_model.dart';
+import 'package:heron_delivery/ui/views/auth_phone_view.dart';
 import 'package:heron_delivery/ui/views/home_view.dart';
 import 'package:heron_delivery/ui/widgets/drawer_menu_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
 
 class TabsView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       //I have wrapped my widget with ChangeNotifierProvider
       //so my widget will be notified when the value changes.
-      create: (_) => new _NavegacionModel(),
+      create: (_) => new TabViewModel(),
       child: Scaffold(
         key: _scaffoldKey,
         drawerEnableOpenDragGesture: true,
-        drawer: DrawerMenuWidget(),
-        body: _Paginas(scaffoldKey: _scaffoldKey),
-        bottomNavigationBar: _Navegacion(),
+        drawer: Consumer<TabViewModel>(
+          builder: (context, model, child) =>
+            DrawerMenuWidget(onTap: (context, index) {
+              model.paginaActual = index;
+              Navigator.pop(context);
+          }),
+        ),
+        body: _PageViewWidget(scaffoldKey: _scaffoldKey),
       ),
     );
   }
 }
 
-class _Navegacion extends StatelessWidget {
+class _PageViewWidget extends StatelessWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  //_PageViewWidget({Key key,scaffoldkey this._scaffoldKey}):super(key:);
+  _PageViewWidget({Key key, this.scaffoldKey}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final navegacionModel = Provider.of<_NavegacionModel>(context);
+    final navegacionModel = Provider.of<TabViewModel>(context);
+
+    return PageView(
+      onPageChanged: (i) => navegacionModel.paginaActual = i,
+      controller: navegacionModel.pageController,
+      //physics: BouncingScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[HomeView(scaffoldKey: scaffoldKey), AuthPhoneView()],
+    );
+  }
+}
+
+/*
+class _ButtomNavigationBarWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final navegacionModel = Provider.of<NavegacionModel>(context);
     return BottomNavigationBar(
         iconSize: 20.0,
         onTap: (i) =>
@@ -59,47 +82,4 @@ class _Navegacion extends StatelessWidget {
         ]);
   }
 }
-
-class _Paginas extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  //_Paginas({Key key,scaffoldkey this._scaffoldKey}):super(key:);
-  _Paginas({Key key, this.scaffoldKey}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final navegacionModel = Provider.of<_NavegacionModel>(context);
-
-    return PageView(
-      onPageChanged: (i) => navegacionModel.paginaActual = i,
-      controller: navegacionModel.pageController,
-      //physics: BouncingScrollPhysics(),
-      physics: NeverScrollableScrollPhysics(),
-      children: <Widget>[
-        HomeView(scaffoldKey: scaffoldKey),
-      ],
-    );
-  }
-}
-
-class _NavegacionModel with ChangeNotifier {
-  int _paginaActual = 0;
-  PageController _pageController = new PageController();
-
-  int get paginaActual => this._paginaActual;
-
-  set paginaActual(int valor) {
-    this._paginaActual = valor;
-
-    //_pageController.animateToPage(valor,
-    //    duration: Duration(milliseconds: 250), curve: Curves.easeOut);
-
-    _pageController.animateToPage(valor,
-        duration: const Duration(milliseconds: 300), 
-        curve: Curves.easeOutCubic
-        );
-    //notifico cuado se realice un cambio en el valor
-    notifyListeners();
-  }
-
-  PageController get pageController => this._pageController;
-}
+*/

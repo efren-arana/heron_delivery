@@ -15,7 +15,7 @@ class UserModel {
   UserModel(
       {@required this.email,
       @required this.fullName,
-      this.password,
+      this.password = '',
       @required this.userId,
       this.phoneNumber = '',
       this.photoUrl = '',

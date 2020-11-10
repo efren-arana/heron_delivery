@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
 import 'package:heron_delivery/core/services/authentication_service.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
 import 'package:heron_delivery/core/services/i_auth_service.dart';
-import 'package:heron_delivery/ui/views/auth_phone_view.dart';
-import 'package:heron_delivery/ui/views/settings_view.dart';
 
 import '../../locator.dart';
 
 class DrawerMenuWidget extends StatelessWidget {
-  final _trailing = Icon(Icons.arrow_forward_ios);
-  final IAuthService _authenticationService =
-      locator<AuthServiceFirebase>();
+  final Function(BuildContext, int) onTap;
+  final IAuthService _authenticationService = locator<AuthServiceFirebase>();
+  DrawerMenuWidget({this.onTap});
+
   @override
   Widget build(BuildContext context) {
+    final _arrowtrailing = FaIcon(FontAwesomeIcons.arrowRight);
+
     return Drawer(
       child: new ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                //new UserAccountsDrawerHeader(
-                //    accountName: Text('accountName'),
-                //    accountEmail: Text('accountEmail')),
-                CircleAvatar(
-                  maxRadius: 30.0,
-                  child: Text('EA'),
-                  backgroundColor: Colors.green[600],
-                  foregroundColor: Colors.white,
-                ),
-                Container(
-                  child: Text('Hola Denisse'),
-                ),
-              ],
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
+            child: new UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                child: Text(
+                        '${_authenticationService.currentUser.fullName.substring(0, 1)}',
+                        style: theme.header2Style),
+                backgroundColor: theme.getColorYellowRGBO,
+                foregroundColor: theme.getColorBlueRGBO,
+              ),
+              decoration: BoxDecoration(color: Colors.transparent),
+              accountName: Text(
+                '${_authenticationService.currentUser.fullName}',
+                style: theme.subHeaderStyle,
+              ),
+              accountEmail: Text('${_authenticationService.currentUser.email}'),
             ),
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -43,82 +43,22 @@ class DrawerMenuWidget extends StatelessWidget {
                     fit: BoxFit.cover)),
           ),
           ListTile(
-            leading: Icon(Icons.phone),
-            title: Text('VerifyPhoneNumber'),
-            trailing: _trailing,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AuthPhoneView()));
-            },
-          ),
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              trailing: _arrowtrailing,
+              onTap: () => onTap(context, 0)),
           Divider(),
           ListTile(
-            leading: FaIcon(FontAwesomeIcons.sign),
-            title: Text('Sign'),
-            trailing: _trailing,
-            onTap: () {
-              Navigator.pushNamed(context, routes.RouteSignUpView);
-            },
-          ),
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Carrito'),
+              trailing: _arrowtrailing,
+              onTap: () => onTap(context, 1)),
           Divider(),
           ListTile(
-            leading: FaIcon(FontAwesomeIcons.userNinja),
-            title: Text('Login'),
-            trailing: _trailing,
-            onTap: () {
-              Navigator.pushNamed(context, routes.RouteLoginView);
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.account_box),
-            title: Text('Perfil'),
-            trailing: _trailing,
-            onTap: () {
-              //Navigator.pushReplacementNamed(context, HomePage.routeName);
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.add_location),
-            title: Text('Direcciones'),
-            trailing: _trailing,
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Notificaciones'),
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.delicious),
-            title: Text('Quiero vender en la App'),
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.directions_bike),
-            title: Text('Quiero ser repartidor'),
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.cogs),
-            title: Text('Settings'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, SettingsView.routeName);
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.signOutAlt),
-            title: Text('Cerrar sesion'),
-            onTap: () {
-              _authenticationService.signOut();
-            },
+            leading: FaIcon(FontAwesomeIcons.signOutAlt),
+            title: Text('Log out'),
+            trailing: _arrowtrailing,
+            onTap: () => _authenticationService.signOut(),
           )
         ],
       ),

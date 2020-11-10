@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
 import 'package:heron_delivery/core/viewmodels/signup_view_model.dart';
 import 'package:heron_delivery/ui/shared/background_auth.dart';
 import 'package:heron_delivery/ui/shared/ui_helpers.dart';
