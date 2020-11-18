@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/models/user_model.dart';
 
-abstract class IAuthService {
+abstract class AbstAuth {
 
   
   UserModel get currentUser => null;

@@ -5,10 +5,10 @@ import 'package:heron_delivery/ui/shared/card_product.dart';
 
 
 class GridProductWidget extends StatelessWidget {
-  final List<Item> items = [
-    Item(price: 10.0,name: 'Laptop',idItem: 'IGvdWSEfQnkD6wHUNnCH'),
-    Item(price: 20.0,name: 'iphone X',idItem: 'pP5PNiClUCnq4xqz1i3w'),
-    Item(price: 15.0,name: 'Mouse',idItem: 'wjWcvHnuXUkYgspIKPl7')
+  final List<ItemModel> items = [
+    //ItemModel(price: 10.0,name: 'Laptop',idItem: 'IGvdWSEfQnkD6wHUNnCH'),
+    //ItemModel(price: 20.0,name: 'iphone X',idItem: 'pP5PNiClUCnq4xqz1i3w'),
+    //ItemModel(price: 15.0,name: 'Mouse',idItem: 'wjWcvHnuXUkYgspIKPl7')
   ];
   
   

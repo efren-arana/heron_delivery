@@ -107,10 +107,7 @@ class _SignUpViewState extends State<SignUpView> {
               ),
             ),
       child: Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 3.0,
-          valueColor: AlwaysStoppedAnimation(theme.getColorBlueHex),
-        ),
+        child: loadProgress
       ),
     );
   }

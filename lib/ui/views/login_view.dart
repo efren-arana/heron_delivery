@@ -107,10 +107,7 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
       child: Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 3.0,
-          valueColor: AlwaysStoppedAnimation(theme.getColorBlueHex),
-        ),
+        child: loadProgress
       ),
     );
   }

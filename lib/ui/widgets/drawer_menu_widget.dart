@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
-import 'package:heron_delivery/core/services/authentication_service.dart';
-import 'package:heron_delivery/core/services/i_auth_service.dart';
+import 'package:heron_delivery/core/services/auth/abst_auth.dart';
 
 import '../../locator.dart';
 
 class DrawerMenuWidget extends StatelessWidget {
   final Function(BuildContext, int) onTap;
-  final IAuthService _authenticationService = locator<AuthServiceFirebase>();
+  final AbstAuth _authenticationService = locator<AbstAuth>();
   DrawerMenuWidget({this.onTap});
 
   @override
@@ -55,11 +54,22 @@ class DrawerMenuWidget extends StatelessWidget {
               onTap: () => onTap(context, 1)),
           Divider(),
           ListTile(
+              leading: FaIcon(FontAwesomeIcons.clipboardList),
+              title: Text('Pedidos'),
+              trailing: _arrowtrailing,
+              onTap: () => onTap(context, 1)),
+          Divider(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.33,
+          ),
+          Divider(),
+          ListTile(
             leading: FaIcon(FontAwesomeIcons.signOutAlt),
             title: Text('Log out'),
             trailing: _arrowtrailing,
             onTap: () => _authenticationService.signOut(),
-          )
+          ),
+          Divider(),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
+import 'package:heron_delivery/core/constants/routes_name.dart' as routes;
 import 'package:heron_delivery/core/models/item_detail_model.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/ui/views/order_detail_view.dart';

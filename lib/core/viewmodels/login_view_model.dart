@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:heron_delivery/core/services/authentication_service.dart';
-import 'package:heron_delivery/core/services/i_auth_service.dart';
+import 'package:heron_delivery/core/services/auth/abst_auth.dart';
 import 'package:heron_delivery/core/services/navigation_service.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
+import 'package:heron_delivery/core/constants/routes_name.dart' as routes;
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/utils/validators.dart';
 import 'package:heron_delivery/ui/shared/dialog_manager.dart';
@@ -12,9 +11,8 @@ import '../../locator.dart';
 import '../providers/base_model.dart';
 
 class LoginViewModel extends BaseModel with Validators {
-  final IAuthService _authenticationService = locator<AuthServiceFirebase>();
+  final AbstAuth _authenticationService = locator<AbstAuth>();
 
-  //final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
   GlobalKey<FormState> _formKey;
   bool _formValidated = false;

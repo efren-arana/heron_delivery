@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
 import 'package:heron_delivery/router.dart' as routes;
 import 'package:heron_delivery/core/constants/theme/theme.dart';
 import 'package:heron_delivery/ui/views/startup_view.dart';
 import 'package:provider/provider.dart';
 import 'core/providers/cart_provider.dart';
-import 'core/providers/category_provider.dart';
 import 'core/providers/product_provider.dart';
 import 'core/providers/shop_provider.dart';
 import 'core/services/navigation_service.dart';
@@ -35,16 +35,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //final firestoreService = FirestoreService('shops');
     // Establece el color de la barra de notificaciones
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
-
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+        .copyWith(statusBarColor: Colors.transparent));
     // This widget is the root of your application.
+    HomeViewModel _homeModelProvider = locator<HomeViewModel>();
     return MultiProvider(
       providers: [
         //StreamProvider<User>(create: (context) => firestoreService.getProducts()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => Cart()),
-        ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (context) => _homeModelProvider),
         ChangeNotifierProvider(create: (_) => ShopProvider())
       ],
       child: MaterialApp(

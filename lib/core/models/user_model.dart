@@ -37,7 +37,7 @@ class UserModel {
   DocumentReference userRolRef;
   String password;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserModel.fromJson(Map<String, dynamic> json,[String documentId]) => UserModel(
       email: json["email"],
       password: json["password"],
       fullName: json["full_name"],
@@ -46,7 +46,7 @@ class UserModel {
       userAddress: (json["user_address"] != null)
           ? UserAddress.fromJson(json["user_address"])
           : null,
-      userId: json["user_id"],
+      userId: documentId ?? json["user_id"],
       userLocation: json["user_location"],
       userRolId: json["user_rol_id"] ?? '',
       userRolRef: json["user_rol_ref"],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
+import 'package:heron_delivery/core/constants/routes_name.dart' as routes;
 import 'package:heron_delivery/ui/views/buy_view.dart';
 import 'package:heron_delivery/ui/views/check_out_view.dart';
 import 'package:heron_delivery/ui/views/home_view.dart';

@@ -26,26 +26,26 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  loadValues(Item product) {
+  loadValues(ItemModel product) {
     _name = product.name;
-    _price = product.price;
-    _productId = product.idItem;
+    _price = product.unitPriceSale;
+    _productId = product.itemId;
   }
 
   saveProduct() {
     print(_productId);
     if (_productId == null) {
-      var newProduct = Item(name: name, price: price, idItem: uuid.v4());
-      firestoreService.saveProduct(newProduct);
+      //var newProduct = ItemModel(name: name, price: price, idItem: uuid.v4());
+      //firestoreService.saveProduct(newProduct);
     } else {
       //Update
-      var updatedProduct =
-          Item(name: name, price: _price, idItem: _productId);
-      firestoreService.saveProduct(updatedProduct);
+      //var updatedProduct =
+      //    ItemModel(name: name, price: _price, idItem: _productId);
+      //firestoreService.saveProduct(updatedProduct);
     }
   }
 
   removeProduct(String productId) {
-    firestoreService.removeProduct(productId);
+    //firestoreService.removeProduct(productId);
   }
 }

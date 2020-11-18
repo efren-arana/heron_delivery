@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:heron_delivery/core/providers/base_model.dart';
 
-class TabViewModel with ChangeNotifier {
+class TabViewModel extends BaseModel {
   int _paginaActual = 0;
   PageController _pageController = new PageController();
 

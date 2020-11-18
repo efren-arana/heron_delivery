@@ -3,18 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:heron_delivery/core/models/user_model.dart';
-import 'package:heron_delivery/core/services/firestore_service.dart';
-import 'package:heron_delivery/core/services/i_auth_service.dart';
+import 'package:heron_delivery/core/services/auth/abst_auth.dart';
 import 'package:heron_delivery/core/services/navigation_service.dart';
-import 'package:heron_delivery/core/constants/route_names.dart' as routes;
+import 'package:heron_delivery/core/constants/routes_name.dart' as routes;
 
-import '../../locator.dart';
+import '../../../locator.dart';
+import '../abst_user_service.dart';
 
-class AuthServiceFirebase implements IAuthService {
+class AuthServiceFirebase implements AbstAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
   //final FirestoreService _firestoreService = locator<FirestoreService>();
-  final _firestoreService = FirestoreService('users');
+  final AbstUserService _firestoreService = locator<AbstUserService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   UserModel _currentUser;
@@ -50,6 +50,7 @@ class AuthServiceFirebase implements IAuthService {
   /// Metodo que realiza la autenticacion con facebook
   @override
   Future signInWithFacebook() async {
+    //TODO: obtener la foto de perfil de facebook
     try {
       // Trigger the sign-in flow
       final LoginResult loginResult = await _facebookAuth
@@ -71,6 +72,7 @@ class AuthServiceFirebase implements IAuthService {
       UserCredential authResult =
           await _firebaseAuth.signInWithCredential(facebookAuthCredential);
       // create a new user profile on firestore
+      //TODO: obtener la foto de perfil de facebook
       _currentUser = new UserModel(
           userId: authResult.user.uid,
           email: authResult.user.email,
@@ -113,24 +115,20 @@ class AuthServiceFirebase implements IAuthService {
   /// En caso que el usuario no se pueda crear lo elimina de la autenticacion
   /// Maneja las excepciones que se presentan en la eliminacion y en el registro de datos
   Future _createUser(User user, UserModel userModel) async {
-    //creo un nuevo usuario
-    //si el metodo trae un mensaje es por que ocurrio un error al registrarse
-    dynamic rerult = await _firestoreService.setDocument(
-        userModel.userId, userModel.toJson());
-
-    if (rerult is bool) {
-      if (rerult) {
-        return user != null;
-      }
-    }
-
     try {
-      user.delete();
-      return false;
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    } catch (e) {
-      return e.message;
+      //creo un nuevo usuario
+      //si el metodo trae un mensaje es por que ocurrio un error al registrarse
+      await _firestoreService.setDocument(userModel.userId, userModel.toJson());
+      return true;
+    } catch (d) {
+      try {
+        user.delete();
+        return false;
+      } on FirebaseAuthException catch (e) {
+        return e.message +'. '+ d.message;
+      } catch (e) {
+        return e.message +'. '+ d.message;
+      }
     }
   }
 
@@ -151,8 +149,7 @@ class AuthServiceFirebase implements IAuthService {
     // setear el modelo del usuario con los datos obtenido de firebase_auth
     //TODO: se tiene que validar si todos los datos del registro del usuario se guardan en cached
     if (user != null) {
-      DocumentSnapshot doc = await _firestoreService.getDocumentById(user.uid);
-      _currentUser = UserModel.fromJson(doc.data());
+      _currentUser = await _firestoreService.getUserById(user.uid);
     }
   }
 
