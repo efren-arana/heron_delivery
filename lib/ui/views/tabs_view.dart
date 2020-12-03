@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/viewmodels/tabs_view_model.dart';
 import 'package:heron_delivery/ui/views/auth_phone_view.dart';
+import 'package:heron_delivery/ui/views/check_out_view.dart';
 import 'package:heron_delivery/ui/views/home_view.dart';
 import 'package:heron_delivery/ui/widgets/drawer_menu_widget.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class _PageViewWidget extends StatelessWidget {
       controller: navegacionModel.pageController,
       //physics: BouncingScrollPhysics(),
       physics: NeverScrollableScrollPhysics(),
-      children: <Widget>[HomeView(scaffoldKey: scaffoldKey), AuthPhoneView()],
+      children: <Widget>[HomeView(scaffoldKey: scaffoldKey)],
     );
   }
 }

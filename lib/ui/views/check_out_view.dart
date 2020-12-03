@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:heron_delivery/core/models/item_detail_model.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutView extends StatefulWidget {
-  
   @override
   _CheckoutViewState createState() => _CheckoutViewState();
 }
@@ -15,16 +15,16 @@ class _CheckoutViewState extends State<CheckoutView> {
     super.initState();
   }
 
-  
   @override
   Widget build(BuildContext context) {
-    return Consumer<Cart>(
+    return Consumer<CartProvider>(
       builder: (context, cart, child) {
         return Scaffold(
             appBar: AppBar(
               actions: <Widget>[
-                IconButton(icon: FaIcon(FontAwesomeIcons.trash), 
-                onPressed: ()=> cart.removeAll())
+                IconButton(
+                    icon: FaIcon(FontAwesomeIcons.trash),
+                    onPressed: () => cart.removeAll())
               ],
               title: Text('Checkout Page [\$ ${cart.subTotal}]'),
             ),
@@ -33,32 +33,48 @@ class _CheckoutViewState extends State<CheckoutView> {
                 : ListView.builder(
                     itemCount: cart.basketItems.length,
                     itemBuilder: (context, index) {
-                      return Dismissible(
-                        key: UniqueKey(),
-                        child: Card(
-                          child: ListTile(
-                            leading: Text(cart.basketItems[index].total.toString()),
-                            title: Text(cart.basketItems[index].itemName),
-                            subtitle:
-                                Text(cart.basketItems[index].itemPrice.toString()),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                cart.remove(cart.basketItems[index]);
-                              },
-                            ),
+                      return Card(
+                        child: ListTile(
+                          leading: Text(
+                              '\$' + cart.basketItems[index].total.toString()),
+                          title: Row(
+                            children: [
+                              Text(cart.basketItems[index].item.name),
+                              Container(
+                                  color: Colors.amber,
+                                  child: Row(children: [
+                                    IconButton(
+                                        icon: FaIcon(Icons.remove),
+                                        onPressed: () =>
+                                            cart.decreaseQuantityOfItem(
+                                                cart.basketItems[index])),
+                                    Text(
+                                        '${cart.basketItems[index].cantSelected}'),
+                                    IconButton(
+                                      icon: FaIcon(Icons.add),
+                                      onPressed: () => cart.increaseCantOfItems(
+                                          cart.basketItems[index]),
+                                    )
+                                  ])),
+                            ],
+                          ),
+                          subtitle: Text(cart
+                                  .basketItems[index].item.unitPriceSale
+                                  .toString() +
+                              ' X${cart.basketItems[index].cantSelected}'),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              cart.removeItemFromList(cart.basketItems[index]);
+                            },
                           ),
                         ),
                       );
                     },
                   ),
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: ()  => Navigator.pushNamed(context, '/buy') )
-
-                  );
+            floatingActionButton: FloatingActionButton(
+                onPressed: () => Navigator.pushNamed(context, '/buy')));
       },
     );
-
-
   }
 }

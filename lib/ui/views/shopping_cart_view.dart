@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/models/shop_model.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/core/constants/theme/theme.dart';
-import 'package:heron_delivery/ui/widgets/grid_product_widget.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingCartView extends StatelessWidget {
@@ -14,8 +13,8 @@ class ShoppingCartView extends StatelessWidget {
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: Container(
               width: 200.0,
-              child: Consumer<Cart>(
-                builder: (BuildContext context, Cart value, Widget child) { 
+              child: Consumer<CartProvider>(
+                builder: (BuildContext context, CartProvider value, Widget child) { 
                   return FloatingActionButton.extended(
                   isExtended: true,
                   icon: Icon(Icons.shopping_cart),
@@ -36,14 +35,14 @@ class ShoppingCartView extends StatelessWidget {
                   _posterTitulo(context, shop),
                   _description(shop),
                 ])),
-                GridProductWidget()
+                //GridProductWidget()
               ],
             ),
           );
   }
 
   Widget _crearAppBar(Shop shop) {
-    return Consumer<Cart>(
+    return Consumer<CartProvider>(
       builder: (BuildContext context, cart, Widget child) {
         return SliverAppBar(
           actions: <Widget>[

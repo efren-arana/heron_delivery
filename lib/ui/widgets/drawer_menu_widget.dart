@@ -48,16 +48,10 @@ class DrawerMenuWidget extends StatelessWidget {
               onTap: () => onTap(context, 0)),
           Divider(),
           ListTile(
-              leading: Icon(Icons.shopping_cart),
-              title: Text('Carrito'),
-              trailing: _arrowtrailing,
-              onTap: () => onTap(context, 1)),
-          Divider(),
-          ListTile(
               leading: FaIcon(FontAwesomeIcons.clipboardList),
               title: Text('Pedidos'),
               trailing: _arrowtrailing,
-              onTap: () => onTap(context, 1)),
+              onTap: () => null),
           Divider(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.33,
@@ -66,7 +60,7 @@ class DrawerMenuWidget extends StatelessWidget {
           ListTile(
             leading: FaIcon(FontAwesomeIcons.signOutAlt),
             title: Text('Log out'),
-            trailing: _arrowtrailing,
+            //trailing: _arrowtrailing,
             onTap: () => _authenticationService.signOut(),
           ),
           Divider(),

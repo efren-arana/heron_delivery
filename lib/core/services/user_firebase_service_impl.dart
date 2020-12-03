@@ -22,6 +22,7 @@ class UserServiceFirebaseImpl implements AbstUserService {
   @override
   Future setDocument(String id, Map data) async {
     //TODO: Agregar setOption para combinar los datos en lugar de sobreescribirlos
+    //TODO: Combinar los datos solo requeridos.
     await ref.doc(id).set(data);
   }
 }

@@ -1,8 +1,9 @@
+/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/constants/routes_name.dart' as routes;
-import 'package:heron_delivery/core/models/item_detail_model.dart';
+import 'package:heron_delivery/core/models/item_model.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/ui/views/order_detail_view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -29,7 +30,7 @@ class _BuyViewState extends State<BuyView> {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context);
+    final cart = Provider.of<CartProvider>(context);
     pr = ProgressDialog(context);
 
     pr.style(message: 'Please wait...');
@@ -47,7 +48,7 @@ class _BuyViewState extends State<BuyView> {
     );
   }
 
-  createAlertDialog(BuildContext context, Cart cart) {
+  createAlertDialog(BuildContext context, CartProvider cart) {
     showDialog(
       context: context,
       builder: (context) {
@@ -73,9 +74,9 @@ class _BuyViewState extends State<BuyView> {
   ///Registra la orden y recibe los siguientes parametros
   ///[shopId] : id de la tienda donde se registrara la orden
   ///[cart] : carrtio de compra con todos los item que se requieren vender
-  Future<void> addOrder({String shopId, Cart cart}) {
+  Future<void> addOrder({String shopId, CartProvider cart}) {
     WriteBatch batch = FirebaseFirestore.instance.batch();
-    List<LineItem> items = cart.basketItems;
+    List<ItemModel> items = cart.basketItems;
 
     //configuracione de la app
     double iva = 0.0;
@@ -117,18 +118,18 @@ class _BuyViewState extends State<BuyView> {
       for (int i = 0; i < items.length; i++) {
         DocumentReference itemReference = FirebaseFirestore.instance
             .collection('shops/$shopId/items')
-            .doc('/${items[i].idItem}');
+            .doc('/${items[i].itemId}');
         // Get the item document
         DocumentSnapshot snapshot = await transaction.get(itemReference);
 
         if (!snapshot.exists) {
-          throw Exception("El item ${items[i].idItem} no existe en inventario");
+          throw Exception("El item ${items[i].itemId} no existe en inventario");
         }
         //Valido que el status de item este activo (A)
         //caso contratio aborto la transaccion
         String status = snapshot.get('status');
         if (status.compareTo('A') != 0) {
-          throw Exception("El item ${items[i].itemName} se encuentra inactivo");
+          throw Exception("El item ${items[i].name} se encuentra inactivo");
         }
         //Valido la disponibilidad del producto
         // esta validacion la realizo previamente
@@ -139,20 +140,20 @@ class _BuyViewState extends State<BuyView> {
         //caso contratio aborto la transaccion
         if (!snapshot.get('available')) {
           throw Exception(
-              "El item ${items[i].itemName} no se encuentra disponible en este momento");
+              "El item ${items[i].name} no se encuentra disponible en este momento");
         }
         //valida que la cantidad de items seleccionados
         //no supere el stock de la base de datos
         if (items[i].cantSelected > snapshot.get('stock')) {
           throw Exception(
-              'La cantidad de items seleccionados de ${items[i].itemName} supera el stock');
+              'La cantidad de items seleccionados de ${items[i].name} supera el stock');
         }
       }
       //actualizo el stock de los productos seleccionados
       for (var item in items) {
         DocumentReference itemReference = FirebaseFirestore.instance
             .collection('shops/$shopId/items')
-            .doc('/${item.idItem}');
+            .doc('/${item.itemId}');
         // Get the item document
 
         DocumentSnapshot snapshot = await transaction.get(itemReference);
@@ -227,7 +228,7 @@ class _BuyViewState extends State<BuyView> {
         //Obtengo la referencia del producto seleccionado
         DocumentReference itemReference = FirebaseFirestore.instance
             .collection('shops/$shopId/items')
-            .doc('/${element.idItem}');
+            .doc('/${element.itemId}');
 
         //registro el detalle de la orden y la factura
         transaction.set(orderDetailReference, {
@@ -239,7 +240,7 @@ class _BuyViewState extends State<BuyView> {
           'invoice_id': invoiceReference.id,
           'invoice_ref': invoiceReference,
           'quantity': element.cantSelected,
-          'price_unit': element.itemPrice,
+          'price_unit': element.unitPriceSale,
           'price_total': element.total,
         });
       });
@@ -261,3 +262,4 @@ class _BuyViewState extends State<BuyView> {
     });
   }
 }
+*/

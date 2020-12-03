@@ -6,3 +6,4 @@ const String RouteLoginView = "/login";
 const String RouteSignUpView = "/signup";
 const String RouteHomeView = "/home";
 const String RouteTabView = "/tab";
+const String RouteCheckoutView = "/checkout";

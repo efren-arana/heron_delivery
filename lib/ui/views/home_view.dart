@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:heron_delivery/core/providers/cart_provider.dart';
+import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
 import 'package:heron_delivery/ui/shared/ui_helpers.dart';
 import 'package:heron_delivery/ui/widgets/sliver_category_widget.dart';
 import 'package:heron_delivery/ui/widgets/sliver_item_widget.dart';
 import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -40,9 +43,7 @@ class _HomeViewState extends State<HomeView>
                 fontSize: 25,
                 fontWeight: FontWeight.w700),
           ),
-          actions: <Widget>[
-            _cartActionWidget(context)
-          ],
+          actions: <Widget>[_cartActionWidget(context)],
         ),
         body: CustomScrollView(
           slivers: <Widget>[
@@ -55,6 +56,8 @@ class _HomeViewState extends State<HomeView>
   }
 
   Widget _cartActionWidget(BuildContext context) {
+    HomeViewModel homeViewModel =
+        Provider.of<HomeViewModel>(context, listen: false);
     return Container(
       margin: EdgeInsets.only(right: 15.0),
       height: 35.0,
@@ -63,28 +66,26 @@ class _HomeViewState extends State<HomeView>
         alignment: Alignment.topRight,
         children: <Widget>[
           new IconButton(
-            iconSize: 35.0,
-            icon: Icon(
-              Icons.shopping_cart,
-              color: theme.getColorBlueRGBO,
+              iconSize: 35.0,
+              icon: Icon(
+                Icons.shopping_cart,
+                color: theme.getColorBlueRGBO,
+              ),
+              onPressed: () => homeViewModel.navigateToCheckout()),
+          Consumer<CartProvider>(
+            builder: (context, cart, child) => Container(
+              width: 18.0,
+              height: 18.0,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: (cart.count > 0) ? Colors.red : Colors.transparent),
+              child: Center(
+                  child: (cart.count > 0) ?
+                  Text( '${cart.count}',style: TextStyle(fontSize: 14.0),)
+                : Container(),
+              ),
+              alignment: Alignment.topLeft,
             ),
-            onPressed: () => Navigator.pushNamed(context, '/checkout'),
-          ),
-          Container(
-            width: 15.0,
-            height: 15.0,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                //color: (cart.count > 0) ?
-                color: Colors.red
-                //                : Colors.transparent
-                ),
-            child: Center(
-                child: Text(
-              '1',
-              //style: countItemsCart,
-            )),
-            alignment: Alignment.topLeft,
           )
         ],
       ),

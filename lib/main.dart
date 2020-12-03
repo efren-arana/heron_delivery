@@ -7,7 +7,6 @@ import 'package:heron_delivery/core/constants/theme/theme.dart';
 import 'package:heron_delivery/ui/views/startup_view.dart';
 import 'package:provider/provider.dart';
 import 'core/providers/cart_provider.dart';
-import 'core/providers/product_provider.dart';
 import 'core/providers/shop_provider.dart';
 import 'core/services/navigation_service.dart';
 import 'locator.dart';
@@ -42,8 +41,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         //StreamProvider<User>(create: (context) => firestoreService.getProducts()),
-        ChangeNotifierProvider(create: (context) => ProductProvider()),
-        ChangeNotifierProvider(create: (context) => Cart()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => _homeModelProvider),
         ChangeNotifierProvider(create: (_) => ShopProvider())
       ],

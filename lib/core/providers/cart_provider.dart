@@ -1,85 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/models/item_detail_model.dart';
+import 'package:heron_delivery/core/models/item_model.dart';
 
-class Cart extends ChangeNotifier {
-  List<LineItem> _items = [];
-  double _totalPrice = 0.0;
+class CartProvider extends ChangeNotifier {
+  List<LineItemModel> _listItemDetail = [];
 
-
-  double total(LineItem item) {
-    return item.total;
-  }
-
-  void addItem(LineItem item) {
-    item.addItem();
+  /// Disminuye la cantidad de items seleccionado de la linea de item que se envia
+  /// como parametro [item] recibe la referencia del item que se encuentra en la lista
+  void decreaseQuantityOfItem(LineItemModel lineItemModel) {
+    //Disminuyo la cantidad del lineItem que se encuentra en la lista
+    if (lineItemModel.cantSelected <= 1) return;
+    lineItemModel.removeItem();
     notifyListeners();
   }
 
-  void removeItem(LineItem item) {
-    if (item.cantSelected <= 1) return;
-    item.removeItem();
+  /// Metodo que aumenta la cantidad de un item si se encuentra en la lista
+  /// Caso contrario lo agrega a la lista de item del carrito
+  void addItemsToList(ItemModel item) {
+    LineItemModel lineItemModel = new LineItemModel(item: item);
+    _listItemDetail.add(lineItemModel);
     notifyListeners();
-  }
-
-  void add(LineItem item) {
     /*
-    _items.forEach((element) {
-      if (element.hashCode == item.hashCode) {
-        if (element.selected) {
-          print('${item.itemName} seleted');
-          if (element.total != item.total) {
-            element.total = item.total;
-          }
+    if (isSelected(item)) {
+      //Si el item esta seleccionado es por que se encuentra en la lista
+      //aumento la cantidad del item referenciado en la lista
+      _listItemDetail
+          .singleWhere((element) => element.item.itemId == item.itemId)
+          .addItem();
+      // This call tells the widgets that are listening to this model to rebuild.
+      notifyListeners();
+      return;
+    }
+    */
+  }
+
+  void increaseCantOfItems(LineItemModel lineItemModel) {
+    lineItemModel.addItem();
+    notifyListeners();
+  }
+
+  /// valida si el [itemModel] se encuentra en la lista
+  /// Tambien realiza la validacion si la propiedad esta seleccionada
+  bool isSelected(ItemModel itemModel) {
+    bool isSelected = false;
+
+    _listItemDetail.forEach((element) {
+      if (element.item.itemId == itemModel.itemId) {
+        isSelected = true;
+        if (element.item != itemModel) {
+          element.setItem = itemModel;
         }
         return;
       }
     });
-    */
-    if (item.selected) return;
-
-    item.selected = true;
-    _items.add(item);
-    notifyListeners();
+    return isSelected;
   }
 
-  void remove(LineItem item) {
-    _totalPrice -= item.total;
-    item.selected = false;
-    _items.remove(item);
+  /// Quita de la lista el item [item] enviado como parametro
+  void removeItemFromList(LineItemModel item) {
+    _listItemDetail.remove(item);
     notifyListeners();
   }
 
   void removeAll() {
-    _totalPrice = 0.0;
-    _items.forEach((element) {
-      element.selected = false;
-    });
-    _items.clear();
+    _listItemDetail.clear();
     notifyListeners();
   }
 
+  /// Obtiene la cantidad de items seleccionados
   int get count {
     int cant = 0;
-    _items.forEach((element) {
+    _listItemDetail.forEach((element) {
       cant += element.cantSelected;
     });
     return cant;
   }
 
-  double get totalPrice {
-    return _totalPrice;
-  }
-
+  /// The current total price of all items
   double get subTotal {
     double subTotal = 0.0;
-    _items.forEach((element) {
+    _listItemDetail.forEach((element) {
       subTotal += element.total;
     });
 
     return subTotal;
   }
 
-  List<LineItem> get basketItems {
-    return _items;
+  /// Retorna la lista de items
+  List<LineItemModel> get basketItems {
+    return _listItemDetail;
   }
 }

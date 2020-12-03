@@ -23,10 +23,11 @@ class HomeViewModel extends BaseModel {
   set selectedCategory(String valor) {
     if (valor == this.selectedCategory) return;
     this._selectedCategory = valor;
+    notifyListeners();
     fetchItemsAsStream(valor);
   }
 
-  void cerrar() async{
+  void cerrar() async {
     await _itemsController.drain();
     _itemsController?.close();
   }
@@ -56,8 +57,8 @@ class HomeViewModel extends BaseModel {
     });
   }
 
-  /// Metodo que realiza la navegacion a el detalle del producto
-  Future navigateToCreateView() async {
-    await _navigationService.navigateTo('ItemDetailView');
+  /// Metodo que realiza la navegacion al checkout
+  Future navigateToCheckout() async {
+    await _navigationService.navigateTo('/checkout');
   }
 }
