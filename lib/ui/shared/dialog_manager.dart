@@ -5,8 +5,9 @@ import '../../locator.dart';
 
 NavigationService _navigationService = locator<NavigationService>();
 
+
 /// Metodo que muestra un dialogo con los parametros que recibe
-Future<void> showMyDialog(String title, String description) async {
+Future<void> showMyAlertDialog(String title, String description) async {
   return showDialog<void>(
     context: _navigationService.navigationKey.currentContext,
     barrierDismissible: true, // user must tap button!

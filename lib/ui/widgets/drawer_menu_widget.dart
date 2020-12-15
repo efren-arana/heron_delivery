@@ -54,7 +54,7 @@ class DrawerMenuWidget extends StatelessWidget {
               onTap: () => null),
           Divider(),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.33,
+            height: MediaQuery.of(context).size.height * 0.43,
           ),
           Divider(),
           ListTile(

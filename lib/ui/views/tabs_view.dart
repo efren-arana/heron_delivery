@@ -48,39 +48,3 @@ class _PageViewWidget extends StatelessWidget {
     );
   }
 }
-
-/*
-class _ButtomNavigationBarWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final navegacionModel = Provider.of<NavegacionModel>(context);
-    return BottomNavigationBar(
-        iconSize: 20.0,
-        onTap: (i) =>
-            navegacionModel.paginaActual = i, //envio la referencia a la funcion
-        currentIndex: navegacionModel.paginaActual,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: theme.getColorYellowRGBO,
-        selectedItemColor: theme.getColorBlueHex,
-        unselectedItemColor: theme.getColorGrisRGBO,
-        selectedFontSize: 15,
-        unselectedFontSize: 13,
-        showUnselectedLabels: true,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidHeart),
-              title: Text('Favoritos')),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.clipboardList) /*Icons.assignment*/,
-              title: Text('Pedidos')),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidQuestionCircle),
-              title: Text('Soporte')),
-        ]);
-  }
-}
-*/

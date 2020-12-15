@@ -125,9 +125,9 @@ class AuthServiceFirebase implements AbstAuth {
         user.delete();
         return false;
       } on FirebaseAuthException catch (e) {
-        return e.message +'. '+ d.message;
+        return e.message + '. ' + d.message;
       } catch (e) {
-        return e.message +'. '+ d.message;
+        return e.message + '. ' + d.message;
       }
     }
   }
@@ -135,9 +135,13 @@ class AuthServiceFirebase implements AbstAuth {
   /// Metodo que utiliza el startup_view para validar la sesion del usuario
   @override
   Future<bool> isUserLoggedIn() async {
+    //TODO: Quitar el delayed
     await Future.delayed(Duration(milliseconds: 3000), () {});
     var user = _firebaseAuth.currentUser;
     // Populate the user information
+    print("======================User firebase isUserLoggeIng========================");
+    print('${user.toString()}');
+    print("======================END User firebase========================");
     await _populateCurrentUser(user);
     return user != null;
   }
@@ -148,6 +152,8 @@ class AuthServiceFirebase implements AbstAuth {
     // Este algoritmo evita consultar la base de datos si ya se encuentra un usuario en cached
     // setear el modelo del usuario con los datos obtenido de firebase_auth
     //TODO: se tiene que validar si todos los datos del registro del usuario se guardan en cached
+    //TODO: validar la conveniencia para obtener los datos del usuario
+    //Ya que firebase los almacena en cached
     if (user != null) {
       _currentUser = await _firestoreService.getUserById(user.uid);
     }

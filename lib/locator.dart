@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/core/services/abst_user_service.dart';
 import 'package:heron_delivery/core/services/user_firebase_service_impl.dart';
 import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
@@ -17,6 +18,6 @@ void setupLocator() {
       .registerLazySingleton<AbstItemService>(() => ItemServiceFirebaseImpl());
   locator
       .registerLazySingleton<AbstUserService>(() => UserServiceFirebaseImpl());
-  locator
-      .registerLazySingleton(() => HomeViewModel());
+  locator.registerLazySingleton(() => HomeViewModel());
+  locator.registerLazySingleton(() => CartProvider());
 }

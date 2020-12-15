@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:heron_delivery/core/models/item_category_model.dart';
 import 'package:heron_delivery/core/models/item_model.dart';
+import 'package:heron_delivery/core/models/new_model.dart';
 import 'package:heron_delivery/core/providers/base_model.dart';
+import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/core/services/abst_item_service.dart';
 import 'package:heron_delivery/core/services/navigation_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -11,6 +13,7 @@ import '../../locator.dart';
 class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final AbstItemService _firestoreServiceItems = locator<AbstItemService>();
+  final CartProvider _cartProvider = locator<CartProvider>();
 
   //final StreamController<List<ItemModel>> _itemsController =
   //    StreamController<List<ItemModel>>.broadcast();
@@ -18,6 +21,10 @@ class HomeViewModel extends BaseModel {
   String _selectedCategory = 'Todo'; //Todo
 
   Stream<List<ItemModel>> get items => _itemsController.stream;
+
+  Future<NewModel> getNews() {
+    return _firestoreServiceItems.getNews();
+  }
 
   String get selectedCategory => this._selectedCategory;
   set selectedCategory(String valor) {
@@ -58,7 +65,16 @@ class HomeViewModel extends BaseModel {
   }
 
   /// Metodo que realiza la navegacion al checkout
-  Future navigateToCheckout() async {
+  Future navigateToCheckoutView() async {
+    if (_cartProvider.basketItems.length == 0 ||
+        _cartProvider.basketItems == null) return;
     await _navigationService.navigateTo('/checkout');
+  }
+
+  /// Metodo que realiza la navegacion a la pagina para realizar la orden
+  Future navigateToMakeOrdertView() async {
+    if (_cartProvider.basketItems.length == 0 ||
+        _cartProvider.basketItems == null) return;
+    await _navigationService.navigateTo('/make_order');
   }
 }

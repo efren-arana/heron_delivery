@@ -55,7 +55,7 @@ class SignUpViewModel extends BaseModel with Validators {
       if (result) {
         _navigationService.navigateToPopAndPushNamed(routes.RouteTabView);
       } else {
-        showMyDialog("Registro Fallido",
+        showMyAlertDialog("Registro Fallido",
             "Falla genereal del Registro. Por favor intente de nuevo mas tarde!");
         //await _dialogService.showDialog(
         //  title: 'Login Failure',
@@ -63,7 +63,7 @@ class SignUpViewModel extends BaseModel with Validators {
         //);
       }
     } else {
-      showMyDialog("Registro Fallido", result.toString());
+      showMyAlertDialog("Registro Fallido", result.toString());
     }
     _formValidated = false;
     notifyListeners();

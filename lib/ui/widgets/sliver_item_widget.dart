@@ -76,9 +76,10 @@ class _CardItemWidget extends StatelessWidget {
         maxHeight: _size.height * 0.25,
         maxWidth: _size.width * 0.55,
         child: Consumer<CartProvider>(
-          builder:(context,cart,child) => Container(
-            color:
-                cart.isSelected(itemModel) ? Colors.green[50] : Colors.grey[100],
+          builder: (context, cart, child) => Container(
+            color: cart.isSelected(itemModel)
+                ? Colors.green[50]
+                : Colors.grey[100],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,14 +139,12 @@ class _CardItemWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               )),
           Consumer<CartProvider>(
-            builder: (context,cart,child) => Container(
+            builder: (context, cart, child) => Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  (cart.isSelected(itemModel))
-                      ? Container()
-                      : _addItemButton()
+                  (cart.isSelected(itemModel)) ? Container() : _addItemButton()
                 ],
               ),
             ),
@@ -156,13 +155,20 @@ class _CardItemWidget extends StatelessWidget {
   }
 
   Widget _addItemButton() {
+    final snackBar = SnackBar(content: Text('El item ha sido agregado al carrito!'));
+
     return Consumer<CartProvider>(
-      builder: (context,cart,child) => Container(
+      builder: (context, cart, child) => Container(
         color: Colors.blue,
-        child: FlatButton(
-            color: Colors.red,
-            onPressed: () => cart.addItemsToList(itemModel),
-            child: Text('Agregar')),
+        child: Builder(
+          builder: (context) => FlatButton(
+              color: Colors.red,
+              onPressed: () {
+                cart.addItemsToList(itemModel);
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
+              child: Text('Agregar')),
+        ),
       ),
     );
   }

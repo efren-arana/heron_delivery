@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:heron_delivery/core/models/new_model.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
 import 'package:heron_delivery/ui/shared/ui_helpers.dart';
@@ -47,12 +48,38 @@ class _HomeViewState extends State<HomeView>
         ),
         body: CustomScrollView(
           slivers: <Widget>[
+            _newsWidget(context),
             SliverToBoxAdapter(child: solidDivider(context)),
             SliverItemCategoryWidget(),
             SliverToBoxAdapter(child: solidDivider(context)),
             SliverItemWidget(),
           ],
         ));
+  }
+
+  Widget _newsWidget(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    HomeViewModel homeViewModel =
+        Provider.of<HomeViewModel>(context, listen: false);
+    return FutureBuilder<NewModel>(
+      future: homeViewModel.getNews(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return SliverToBoxAdapter(
+            child: Container(
+              height: size.height * 0.25,
+              width: double.infinity,
+              child: Image.network(
+                snapshot.data.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        } else {
+          return SliverToBoxAdapter(child: Container());
+        }
+      },
+    );
   }
 
   Widget _cartActionWidget(BuildContext context) {
@@ -71,7 +98,7 @@ class _HomeViewState extends State<HomeView>
                 Icons.shopping_cart,
                 color: theme.getColorBlueRGBO,
               ),
-              onPressed: () => homeViewModel.navigateToCheckout()),
+              onPressed: () => homeViewModel.navigateToCheckoutView()),
           Consumer<CartProvider>(
             builder: (context, cart, child) => Container(
               width: 18.0,
@@ -80,9 +107,12 @@ class _HomeViewState extends State<HomeView>
                   borderRadius: BorderRadius.circular(15.0),
                   color: (cart.count > 0) ? Colors.red : Colors.transparent),
               child: Center(
-                  child: (cart.count > 0) ?
-                  Text( '${cart.count}',style: TextStyle(fontSize: 14.0),)
-                : Container(),
+                child: (cart.count > 0)
+                    ? Text(
+                        '${cart.count}',
+                        style: TextStyle(fontSize: 14.0),
+                      )
+                    : Container(),
               ),
               alignment: Alignment.topLeft,
             ),

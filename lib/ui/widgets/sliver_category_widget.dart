@@ -17,7 +17,7 @@ class SliverItemCategoryWidget extends StatelessWidget {
     return SliverToBoxAdapter(
         child: Container(
       width: double.infinity,
-      height: _size.height * 0.15,
+      height: _size.height * 0.13,
       child: StreamBuilder<List<ItemCategoryModel>>(
           stream: categoryProvider.fetchItemCategoryAsStream(),
           builder: (context, AsyncSnapshot<List<ItemCategoryModel>> snapshot) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heron_delivery/core/models/item_detail_model.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
+import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
+import 'package:heron_delivery/ui/views/home_view.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutView extends StatefulWidget {
@@ -17,6 +18,8 @@ class _CheckoutViewState extends State<CheckoutView> {
 
   @override
   Widget build(BuildContext context) {
+    HomeViewModel homeViewModel =
+        Provider.of<HomeViewModel>(context, listen: false);
     return Consumer<CartProvider>(
       builder: (context, cart, child) {
         return Scaffold(
@@ -73,7 +76,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                     },
                   ),
             floatingActionButton: FloatingActionButton(
-                onPressed: () => Navigator.pushNamed(context, '/buy')));
+                onPressed: () => homeViewModel.navigateToMakeOrdertView()));
       },
     );
   }

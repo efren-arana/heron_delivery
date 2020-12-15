@@ -38,10 +38,12 @@ class MyApp extends StatelessWidget {
         .copyWith(statusBarColor: Colors.transparent));
     // This widget is the root of your application.
     HomeViewModel _homeModelProvider = locator<HomeViewModel>();
+    CartProvider _cartProvider = locator<CartProvider>();
+
     return MultiProvider(
       providers: [
         //StreamProvider<User>(create: (context) => firestoreService.getProducts()),
-        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => _cartProvider),
         ChangeNotifierProvider(create: (context) => _homeModelProvider),
         ChangeNotifierProvider(create: (_) => ShopProvider())
       ],

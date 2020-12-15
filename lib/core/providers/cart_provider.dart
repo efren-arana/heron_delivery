@@ -20,18 +20,6 @@ class CartProvider extends ChangeNotifier {
     LineItemModel lineItemModel = new LineItemModel(item: item);
     _listItemDetail.add(lineItemModel);
     notifyListeners();
-    /*
-    if (isSelected(item)) {
-      //Si el item esta seleccionado es por que se encuentra en la lista
-      //aumento la cantidad del item referenciado en la lista
-      _listItemDetail
-          .singleWhere((element) => element.item.itemId == item.itemId)
-          .addItem();
-      // This call tells the widgets that are listening to this model to rebuild.
-      notifyListeners();
-      return;
-    }
-    */
   }
 
   void increaseCantOfItems(LineItemModel lineItemModel) {
@@ -63,6 +51,7 @@ class CartProvider extends ChangeNotifier {
   }
 
   void removeAll() {
+    if (_listItemDetail.length == 0) return;
     _listItemDetail.clear();
     notifyListeners();
   }

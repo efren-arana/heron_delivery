@@ -7,3 +7,5 @@ const String RouteSignUpView = "/signup";
 const String RouteHomeView = "/home";
 const String RouteTabView = "/tab";
 const String RouteCheckoutView = "/checkout";
+const String RouteMakeOrderView = "/make_order";
+const String RouteAuthPhoneView = "/auth_phone";

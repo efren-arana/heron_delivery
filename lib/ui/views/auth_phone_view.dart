@@ -1,96 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:heron_delivery/ui/views/favorito_view.dart';
+import 'package:heron_delivery/core/viewmodels/auth_phone_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AuthPhoneView extends StatelessWidget {
   final _phoneController = TextEditingController();
-  final _codeController = TextEditingController();
-
-  Future<void> loginUser(String phone, BuildContext context) {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-
-    return _auth.verifyPhoneNumber(
-        phoneNumber: phone,
-        timeout: Duration(seconds: 60),
-        verificationCompleted: (AuthCredential credential) async {
-          Navigator.of(context).pop();
-
-          UserCredential result = await _auth.signInWithCredential(credential);
-
-          User user = result.user;
-
-          if (user != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => FavoritoView(
-                          user: user,
-                        )));
-          } else {
-            print("Error");
-          }
-
-          //This callback would gets called when verification is done auto maticlly
-        },
-        verificationFailed: (FirebaseAuthException exception) {
-          print('Exception:******************************\n$exception');
-        },
-        codeSent: (String verificationId, [int forceResendingToken]) {
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text("Give the code?"),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      TextField(
-                        controller: _codeController,
-                      ),
-                    ],
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("Confirm"),
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      onPressed: () async {
-                        final code = _codeController.text.trim();
-                        AuthCredential credential =
-                            PhoneAuthProvider.credential(
-                                verificationId: verificationId, smsCode: code);
-
-                        UserCredential result =
-                            await _auth.signInWithCredential(credential);
-
-                        User user = result.user;
-
-                        if (user != null) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FavoritoView(
-                                        user: user,
-                                      )));
-                        } else {
-                          print("Error");
-                        }
-                      },
-                    )
-                  ],
-                );
-              });
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          verificationId = verificationId;
-          print(verificationId);
-          print("Timout");
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
+    AuthPhoneViewModel authPhoneViewModel =
+        Provider.of<AuthPhoneViewModel>(context, listen: false);
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
@@ -134,8 +52,7 @@ class AuthPhoneView extends StatelessWidget {
                   padding: EdgeInsets.all(16),
                   onPressed: () async {
                     final phone = _phoneController.text.trim();
-
-                    await loginUser(phone, context);
+                    await authPhoneViewModel.verifyPhoneNumber(phone);
                   },
                   color: Colors.blue,
                 ),

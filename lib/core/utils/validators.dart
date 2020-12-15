@@ -1,5 +1,12 @@
 class Validators {
 
+  /// Metodo que valida el formato del numero
+  dynamic validatePhoneNumber(phone) {
+    //TODO: valido el formato del numero
+    //TODO: agrego el codigo de area del pais
+    return '+593' + phone;
+  }
+
   ///metodo que realiza las validacion de la contrasena
   String validatePwd(value) {
     if (value.toString().isEmpty) {
@@ -31,9 +38,8 @@ class Validators {
   /// [a-zA-Z]{4,} - 4 or more ASCII letters
   /// (?: [a-zA-Z]+){0,2} - 0 to 2 occurrences of a space followed with one or more ASCII letters
   /// $ - end of string.
-  String validateFullName(fullName){
-    Pattern pattern =
-        r'^[a-zA-Z]{4,}(?: [a-zA-Z]+){1,2}$';
+  String validateFullName(fullName) {
+    Pattern pattern = r'^[a-zA-Z]{4,}(?: [a-zA-Z]+){1,2}$';
     RegExp regExp = new RegExp(pattern); //expresion regular
 
     if (regExp.hasMatch(fullName)) {
