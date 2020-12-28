@@ -6,9 +6,25 @@ import '../../locator.dart';
 class MakeOrderViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
-
   /// Metodo que realiza la navegacion a la pagina para verificar el telefono
   Future navigateToAuthPhoneView() async {
     await _navigationService.navigateTo('/auth_phone');
+  }
+
+  /// Metodo que realiza la transaccion para realizar el pedido
+  Future makeOrder() {
+    //TODO: Validar si se encuentra el numero de celular esta autenticado
+    //TODO:
+    //TODO:
+    //TODO:
+    //TODO:
+    //TODO:
+    //TODO:
+    return Future.delayed(Duration(milliseconds: 3000));
+    //TODO:
+    //TODO:
+    //TODO:
+    //TODO:
+    //TODO:
   }
 }

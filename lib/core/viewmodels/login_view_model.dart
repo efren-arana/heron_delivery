@@ -59,7 +59,7 @@ class LoginViewModel extends BaseModel with Validators {
       if (result) {
         _navigationService.navigateTopushReplacementNamed(routes.RouteTabView);
       } else {
-        showMyDialog("Login Fallido",
+        showMyAlertDialog("Login Fallido",
             "Falla genereal del login. Por favor intente de nuevo mas tarde!");
         //await _dialogService.showDialog(
         //  title: 'Login Failure',
@@ -67,7 +67,7 @@ class LoginViewModel extends BaseModel with Validators {
         //);
       }
     } else {
-      showMyDialog("Login Fallido", result.toString());
+      showMyAlertDialog("Login Fallido", result.toString());
     }
     _formValidated = false;
     notifyListeners();

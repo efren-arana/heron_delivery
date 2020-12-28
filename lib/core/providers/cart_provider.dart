@@ -5,6 +5,11 @@ import 'package:heron_delivery/core/models/item_model.dart';
 class CartProvider extends ChangeNotifier {
   List<LineItemModel> _listItemDetail = [];
 
+  //TODO: Costo de envio de la entrega
+  //TODO: este valor se tiene que obtener por medio de una peticion para poder realizar configuraciones
+  //TODO: Configurar servicio que se encarga de traer las configuraciones de la app
+  double _costDelivery = 0.50;
+
   /// Disminuye la cantidad de items seleccionado de la linea de item que se envia
   /// como parametro [item] recibe la referencia del item que se encuentra en la lista
   void decreaseQuantityOfItem(LineItemModel lineItemModel) {
@@ -73,6 +78,16 @@ class CartProvider extends ChangeNotifier {
     });
 
     return subTotal;
+  }
+
+  double get granTotal {
+    double granTotal = 0.0;
+    granTotal = subTotal + costDelivery;
+    return granTotal;
+  }
+
+  double get costDelivery {
+    return this._costDelivery;
   }
 
   /// Retorna la lista de items

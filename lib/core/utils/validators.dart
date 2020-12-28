@@ -1,10 +1,17 @@
-class Validators {
+mixin Validators {
 
   /// Metodo que valida el formato del numero
-  dynamic validatePhoneNumber(phone) {
+  bool validatePhoneNumber(phone) {
     //TODO: valido el formato del numero
     //TODO: agrego el codigo de area del pais
-    return '+593' + phone;
+    Pattern pattern =r'^(?:09)[0-9]{8}$';
+        
+    RegExp regExp = new RegExp(pattern); //expresion regular
+     if (regExp.hasMatch(phone)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ///metodo que realiza las validacion de la contrasena

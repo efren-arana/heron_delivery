@@ -63,6 +63,9 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // Add the dependency for the Firebase SDK for Google Analytics
+    //Depencia para solucionar la exeption 
+    //exception thrown while unbinding java.lang.illegalargumentexception service not registered
+    //implementation 'com.google.android.gms:play-services-base:17.5.0'
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'com.android.support:multidex:1.0.3'//for multidex
     // Add the dependencies for any other desired Firebase products

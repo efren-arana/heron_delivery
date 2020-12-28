@@ -20,8 +20,8 @@ class UserServiceFirebaseImpl implements AbstUserService {
   }
 
   @override
-  Future setDocument(String id, Map data,
-      [bool merge, List<dynamic> fieldPath]) async {
+  Future setDocument(String id, Map<String,dynamic> data,
+      [bool merge = false, List<dynamic> fieldPath]) async {
     if (merge) {
       await ref.doc(id).set(data, new SetOptions(merge: true, mergeFields:fieldPath));
     }else{

@@ -13,17 +13,16 @@ class AuthPhoneViewModel extends BaseModel with Validators {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final NavigationService _navigationService = locator<NavigationService>();
   final AbstUserService _firestoreService = locator<AbstUserService>();
+  final String codArea = '+593';
 
   /// Metodo que me valida el numero ingresado y realiza la autenticacion
   Future<void> verifyPhoneNumber(String phoneNumber) {
-    dynamic phone = this.validatePhoneNumber(phoneNumber);
-    
-    if(phone is String){
-      return _authPhoneNumber(phone);
-    }else{
+    if (this.validatePhoneNumber(phoneNumber)) {
+      return _authPhoneNumber(codArea+phoneNumber);
+    } else {
       return showMyAlertDialog("Verificacion fallida",
-            "Formato del numero invalido. Por favor intente con un numero valido!");
-    }  
+          "Formato del numero invalido. Por favor intente con un numero valido!");
+    }
   }
 
   Future<void> _authPhoneNumber(String phone) {
@@ -79,7 +78,7 @@ class AuthPhoneViewModel extends BaseModel with Validators {
           //El sms nunca llego al dispositivo
           //TODO: Mostar un dialogo indicando el problema
           verificationId = verificationId;
-          print(verificationId);
+          print('VerificationID:  ' + verificationId);
           print("Timout");
         });
   }
@@ -96,7 +95,7 @@ class AuthPhoneViewModel extends BaseModel with Validators {
       print("======================END User firebase========================");
       //quito  la pagina si la verificacion se completo
       if (user != null) {
-        Map<dynamic, dynamic> data = {'phone_number': user.phoneNumber};
+        Map<String, dynamic> data = {'phone_number': user.phoneNumber};
         _firestoreService.setDocument(user.uid, data, true, ['phone_number']);
         _navigationService.pop();
       } else {
