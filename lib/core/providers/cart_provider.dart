@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heron_delivery/core/models/item_detail_model.dart';
 import 'package:heron_delivery/core/models/item_model.dart';
+import 'package:heron_delivery/ui/shared/dialog_manager.dart';
 
 class CartProvider extends ChangeNotifier {
   List<LineItemModel> _listItemDetail = [];
@@ -27,11 +28,18 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///MEtodo que incrementa la cantidad del item seleccionado
   void increaseCantOfItems(LineItemModel lineItemModel) {
+    if (lineItemModel.cantSelected >= lineItemModel.item.unitsInStock){
+      showMyAlertDialog('Fallo Pedido', 'No hay items en el carrito!');
+      return;
+    }
     lineItemModel.addItem();
     notifyListeners();
   }
 
+  /// Getter que me indica si la canasta se encuentra con items
+  bool get itemsInBasket => this.count > 0;
   /// valida si el [itemModel] se encuentra en la lista
   /// Tambien realiza la validacion si la propiedad esta seleccionada
   bool isSelected(ItemModel itemModel) {

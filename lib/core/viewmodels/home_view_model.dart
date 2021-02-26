@@ -82,7 +82,6 @@ class HomeViewModel extends BaseModel {
       showMyAlertDialog('Fallo Pedido', 'No hay items en el carrito!');
       return;
     }
-    //TODO: realizar validaciones del monto de la compra no supera una cantidad definida
     if (_cartProvider.granTotal > amountMax) {
       showMyAlertDialog(
           'Fallo Pedido',

@@ -31,7 +31,7 @@ class LoginViewModel extends BaseModel with Validators {
     //retorno si  hay errores en el formulario
     //esta validacion ya se encuentra en la vista
     // Se valida si el formulario esta validado para poder cambiar el color del boton
-    //es redundante
+    // Es redundante
     if (!_formKey.currentState.validate()) {
       busy = false;
       return;

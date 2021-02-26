@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -47,26 +49,35 @@ class AuthServiceFirebase implements AbstAuth {
     return _firebaseAuth.userChanges();
   }
 
+  /// print the access token data in the console
+  void _printCredentials(AccessToken accessToken) {
+    print(
+      prettyPrint(accessToken.toJson()),
+    );
+  }
+
+  String prettyPrint(Map json) {
+    JsonEncoder encoder = new JsonEncoder.withIndent('  ');
+    String pretty = encoder.convert(json);
+    return pretty;
+  }
+
   /// Metodo que realiza la autenticacion con facebook
   @override
   Future signInWithFacebook() async {
     //TODO: obtener la foto de perfil de facebook
     try {
       // Trigger the sign-in flow
-      final LoginResult loginResult = await _facebookAuth
+      final AccessToken accessToken = await _facebookAuth
           .login(permissions: const ['email', 'public_profile']);
-      switch (loginResult.status) {
-        case FacebookAuthLoginResponse.ok:
-          break;
-        case FacebookAuthLoginResponse.cancelled:
-          return "login cancelled";
-          break;
-        default:
-          return "login failed";
-      }
+      print("===========access token==================");
+      _printCredentials(accessToken);
+      print("===========user data==================");
+      final userData = await FacebookAuth.instance.getUserData();
+      print(prettyPrint(userData));
       // Create a credential from the access token
       final FacebookAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken.token);
+          FacebookAuthProvider.credential(accessToken.token);
 
       // Once signed in, return the UserCredential
       UserCredential authResult =
@@ -79,6 +90,21 @@ class AuthServiceFirebase implements AbstAuth {
           fullName: authResult.user.displayName);
 
       return await _createUser(authResult.user, _currentUser);
+    } on FacebookAuthException catch (e) {
+      // if the facebook login fails
+      print(e.message); // print the error message in console
+      // check the error type
+      switch (e.errorCode) {
+        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+          return "You have a previous login operation in progress";
+          break;
+        case FacebookAuthErrorCode.CANCELLED:
+          return "login cancelled";
+          break;
+        case FacebookAuthErrorCode.FAILED:
+          return "login failed";
+          break;
+      }
     } catch (e) {
       return e.message;
     }
@@ -139,7 +165,9 @@ class AuthServiceFirebase implements AbstAuth {
     await Future.delayed(Duration(milliseconds: 3000), () {});
     var user = _firebaseAuth.currentUser;
     // Populate the user information
-    print("======================User firebase isUserLoggeIng========================");
+    //TODO: Quitar los comentarios de verificacion
+    print(
+        "======================User firebase isUserLoggeIng========================");
     print('${user.toString()}');
     print("======================END User firebase========================");
     await _populateCurrentUser(user);

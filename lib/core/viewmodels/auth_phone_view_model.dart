@@ -10,7 +10,7 @@ import '../../locator.dart';
 
 class AuthPhoneViewModel extends BaseModel with Validators {
   final _codeController = TextEditingController();
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final NavigationService _navigationService = locator<NavigationService>();
   final AbstUserService _firestoreService = locator<AbstUserService>();
   final String codArea = '+593';

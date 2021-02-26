@@ -13,7 +13,7 @@ abstract class AbstAuth {
   });
 
   ///Metodo que notifica por medio de un flujo los cambios que ocurren en el usuario
-  Stream<User> userChangesStream();
+  Stream<User> userChangesStream(); // TODO: Cambiar el tipo de flujo por object o dynamic
 
   /// Metodo que realiza la autenticacion con facebook
   Future signInWithFacebook();

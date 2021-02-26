@@ -25,6 +25,7 @@ class UserModel {
       this.userRolRef,
       this.status = 'A'});
 
+//TODO: Cambiar el tipo de dato de firebase por una clase que mezcle o extienda esa clase para manejar tipo de datos abstractos
   String status;
   String email;
   String fullName;

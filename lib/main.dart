@@ -15,6 +15,7 @@ void main() async {
   //bloquea el giro de la pantalla en (android)
   //permite inicializar las preferencias del usuario
   WidgetsFlutterBinding.ensureInitialized();
+  //Inicializo las configuraciones de android
   await Firebase.initializeApp();
   //final prefs = new PrefsUser();
   //await prefs.initPrefs();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:heron_delivery/core/viewmodels/auth_phone_view_model.dart';
 import 'package:heron_delivery/core/viewmodels/make_order_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
 
+import 'package:provider/provider.dart';
 
 class MakeOrderView extends StatefulWidget {
   const MakeOrderView({Key key}) : super(key: key);
@@ -17,38 +17,22 @@ class _MakeOrderViewState extends State<MakeOrderView> {
   String latitud = "";
   String longitud = "";
   bool _myLocation = false;
+  Size _size;
+
   @override
   Widget build(BuildContext context) {
+    _size = MediaQuery.of(context).size; //obtengo el tamanio de la pantalla
     return ChangeNotifierProvider(
         create: (context) => MakeOrderViewModel(),
-        builder:(context,child) => Scaffold(
+        child: Scaffold(
           appBar: AppBar(),
-          body: Container(
+          body: Consumer<MakeOrderViewModel>(
+            builder: (context, model, child) => Container(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: TextFormField(
-                        readOnly: true,
-                        onTap: () => Provider.of<MakeOrderViewModel>(context,listen: false)
-                        .navigateToAuthPhoneView(),
-                        decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                                borderSide:
-                                    BorderSide(color: Colors.grey[200])),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                                borderSide:
-                                    BorderSide(color: Colors.grey[300])),
-                            filled: true,
-                            fillColor: Colors.grey[100],
-                            hintText: "Mobile Number"),
-                      ),
-                    ),
+                    _textFormFieldPhoneNumber(model),
                     Container(
                       child: IconButton(
                           icon: FaIcon(
@@ -69,14 +53,61 @@ class _MakeOrderViewState extends State<MakeOrderView> {
                           }),
                     ),
                     Text("Latitud: " + '$latitud'),
-                    Text("Longitud: " + '$longitud')
+                    Text("Longitud: " + '$longitud'),
+                    _makeOrderButton(model)
                   ],
                 ),
               ),
             ),
-          floatingActionButton: FloatingActionButton(onPressed: () => Provider.of<MakeOrderViewModel>(context,listen: false)
-            .makeOrder()),
+          )
         ));
+  }
+
+  Widget _textFormFieldPhoneNumber(MakeOrderViewModel model) {
+    return Container(
+      child: TextFormField(
+        keyboardType: TextInputType.phone,
+        enableInteractiveSelection: false,
+        initialValue: model.phoneNumber,
+        readOnly: true,
+        onTap: () => model.navigateToAuthPhoneView(),
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color: Colors.grey[200])),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color: Colors.grey[300])),
+            filled: true,
+            fillColor: Colors.grey[100],
+            hintText: "Mobile Number"),
+      ),
+    );
+  }
+
+  Widget _makeOrderButton(MakeOrderViewModel model) {
+    return RaisedButton(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: _size.width * 0.15, vertical: _size.height * 0.02),
+          child: Text(
+            'Hacer el pedido',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        elevation: 1.0,
+        color: (model.phoneNumberValidated)
+            ? theme.getColorBlueHex
+            : Color.fromRGBO(99, 101, 105, 0.4),
+        onPressed: () {
+          if (model.phoneNumberValidated) {
+            //salva los valores de todos los campos del formulario
+            //Se ejecuta este metodo para poder almacenar los valores y se pueden enviar al submit
+            //_formKey.currentState.save();
+            model.makeOrder();
+          }
+        });
   }
 
   void getCurrentLocation() async {

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
+import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
+
 import 'package:provider/provider.dart';
 
 class CheckoutView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return Consumer<CartProvider>(
       builder: (context, cart, child) {
         return Scaffold(
@@ -20,7 +20,6 @@ class CheckoutView extends StatelessWidget {
                     icon: FaIcon(FontAwesomeIcons.trash),
                     onPressed: () => cart.removeAll())
               ],
-              
             ),
             body: cart.basketItems.length == 0
                 ? Center(child: Text('No hay items en su carrito!'))
@@ -69,8 +68,7 @@ class CheckoutView extends StatelessWidget {
                       */
                     },
                   ),
-            bottomNavigationBar: _BottomAppBarSection()
-            );
+            bottomNavigationBar: _BottomAppBarSection());
       },
     );
   }
@@ -98,7 +96,8 @@ class _CardSection extends StatelessWidget {
                   Spacer(),
                   IconButton(
                       icon: FaIcon(FontAwesomeIcons.times, size: 17),
-                      onPressed: ( ) => cart.removeItemFromList(cart.basketItems[index]))
+                      onPressed: () =>
+                          cart.removeItemFromList(cart.basketItems[index]))
                 ],
               ),
             ),
@@ -149,10 +148,10 @@ class _BottomAppBarSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        HomeViewModel homeViewModel =
+    HomeViewModel homeViewModel =
         Provider.of<HomeViewModel>(context, listen: false);
     return Consumer<CartProvider>(
-      builder: (context,model,child) => BottomAppBar(
+      builder: (context, model, child) => BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.20,
@@ -166,7 +165,7 @@ class _BottomAppBarSection extends StatelessWidget {
                     children: <Widget>[
                       Text('Subtotal'),
                       Spacer(),
-                      Text('\$' +model.subTotal.toString()),
+                      Text('\$' + model.subTotal.toString()),
                     ],
                   ),
                 ),
@@ -176,7 +175,7 @@ class _BottomAppBarSection extends StatelessWidget {
                     children: <Widget>[
                       Text('Costo de envío'),
                       Spacer(),
-                      Text('\$'+'${model.costDelivery.toStringAsFixed(2)}'),
+                      Text('\$' + '${model.costDelivery.toStringAsFixed(2)}'),
                     ],
                   ),
                 ),
@@ -186,7 +185,7 @@ class _BottomAppBarSection extends StatelessWidget {
                     children: <Widget>[
                       Text('Total'),
                       Spacer(),
-                      Text('\$' +'${model.granTotal}'),
+                      Text('\$' + '${model.granTotal}'),
                     ],
                   ),
                 ),
@@ -196,8 +195,16 @@ class _BottomAppBarSection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
-                          onPressed: ( ) => homeViewModel.navigateToMakeOrdertView(),
-                          child: Text('Continuar', style: TextStyle(fontSize: 20))),
+                          color: (model.itemsInBasket)
+                              ? theme.getColorBlueHex
+                              : Color.fromRGBO(99, 101, 105, 0.4),
+                          onPressed: () {
+                            if (model.itemsInBasket) {
+                              homeViewModel.navigateToMakeOrdertView();
+                            }
+                          },
+                          child: Text('Continuar',
+                              style: TextStyle(fontSize: 20))),
                     ],
                   ),
                 ),
