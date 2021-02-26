@@ -43,6 +43,7 @@ class ItemModel {
   String barcode;
   String status;
 
+  ///Contructor con nombre que recibe un parametro posicional opcional
   factory ItemModel.fromJson(Map<String, dynamic> json, [String documentId]) =>
       ItemModel(
         unitPriceSale: json["unit_price_sale"].toDouble(),
@@ -90,7 +91,7 @@ class ItemModel {
   }
 
   @override
-  // TODO: implement hashCode
+  // TODO: implement hashCode para identificar el objeto
   int get hashCode => super.hashCode;
 
 }

@@ -3,8 +3,6 @@
 //     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -20,9 +18,7 @@ class UserModel {
       this.phoneNumber = '',
       this.photoUrl = '',
       this.userAddress,
-      this.userLocation,
       this.userRolId = '',
-      this.userRolRef,
       this.status = 'A'});
 
 //TODO: Cambiar el tipo de dato de firebase por una clase que mezcle o extienda esa clase para manejar tipo de datos abstractos
@@ -33,9 +29,9 @@ class UserModel {
   String photoUrl;
   UserAddress userAddress;
   String userId;
-  GeoPoint userLocation;
+//  GeoPoint userLocation;
   String userRolId;
-  DocumentReference userRolRef;
+//  DocumentReference userRolRef;
   String password;
 
   factory UserModel.fromJson(Map<String, dynamic> json,[String documentId]) => UserModel(
@@ -48,9 +44,7 @@ class UserModel {
           ? UserAddress.fromJson(json["user_address"])
           : null,
       userId: documentId ?? json["user_id"],
-      userLocation: json["user_location"],
       userRolId: json["user_rol_id"] ?? '',
-      userRolRef: json["user_rol_ref"],
       status: json['status'] ?? 'A');
 
   Map<String, dynamic> toJson() => {
@@ -61,9 +55,7 @@ class UserModel {
         "photo_url": photoUrl,
         "user_address": (userAddress != null) ? (userAddress.toJson()) : null,
         "user_id": userId,
-        "user_location": userLocation,
         "user_rol_id": userRolId,
-        "user_rol_ref": userRolRef,
         "status": status
       };
 }

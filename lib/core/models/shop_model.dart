@@ -1,10 +1,6 @@
-// To parse this JSON data, do
-//
-//     final shop = shopFromJson(jsonString);
-
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:heron_delivery/core/models/location_model.dart';
 
 Shop shopFromJson(String str) => Shop.fromJson(json.decode(str));
 
@@ -30,7 +26,7 @@ class Shop {
   String logoUrl;
   String name;
   String description;
-  GeoPoint location;
+  LocationModel location;
   List<String> categories;
   String telefono;
   Direction direction;
