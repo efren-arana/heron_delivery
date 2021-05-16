@@ -163,7 +163,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _submitButton(LoginViewModel model) {
-    return RaisedButton(
+    return ElevatedButton(
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: _size.width * 0.15, 
@@ -174,11 +174,11 @@ class _LoginViewState extends State<LoginView> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 1.0,
-        color: (model.formValidated)
-            ? theme.getColorBlueHex
-            : Color.fromRGBO(99, 101, 105, 0.4),
+        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        //elevation: 1.0,
+        //color: (model.formValidated)
+        //    ? theme.getColorBlueHex
+        //    : Color.fromRGBO(99, 101, 105, 0.4),
         onPressed: () {
           if (model.formValidated) {
             //salva los valores de todos los campos del formulario
@@ -190,8 +190,8 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _facebooklButton(LoginViewModel model) {
-    return RaisedButton.icon(
-        textColor: Colors.white,
+    return ElevatedButton.icon(
+        //textColor: Colors.white,
         icon: FaIcon(
           FontAwesomeIcons.facebook,
           color: Colors.white,
@@ -203,10 +203,9 @@ class _LoginViewState extends State<LoginView> {
             ),
           child: Center(child: Text('Continuar con Facebook')),
         ),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        elevation: 7.0,
-        color: theme.facebookColor,
+        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        //elevation: 7.0,
+        //color: theme.facebookColor,
         onPressed: () => model.loginFacebook());
   }
 

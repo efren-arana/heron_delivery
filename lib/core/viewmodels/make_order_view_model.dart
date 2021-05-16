@@ -26,6 +26,7 @@ class MakeOrderViewModel extends BaseModel {
       _auth.currentUser.phoneNumber != null &&
       _auth.currentUser.phoneNumber.length > 0;
 
+/*
   void _validated() {
     if (phoneNumberValidated) {
       _isValidated = true;
@@ -33,7 +34,7 @@ class MakeOrderViewModel extends BaseModel {
       _isValidated = false;
     }
   }
-
+*/
   /// Metodo que realiza la transaccion para realizar el pedido
   Future makeOrder() {
     //TODO:

@@ -161,11 +161,12 @@ class _CardItemWidget extends StatelessWidget {
       builder: (context, cart, child) => Container(
         color: Colors.blue,
         child: Builder(
-          builder: (context) => FlatButton(
-              color: Colors.red,
+          builder: (context) => TextButton(
+              //color: Colors.red,
               onPressed: () {
                 cart.addItemsToList(itemModel);
-                Scaffold.of(context).showSnackBar(snackBar);
+                //Scaffold.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: Text('Agregar')),
         ),
