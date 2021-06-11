@@ -193,7 +193,7 @@ class _BottomAppBarSection extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      TextButton(
+                      ElevatedButton(
                           //color: (model.itemsInBasket)
                           //    ? theme.getColorBlueHex
                           //    : Color.fromRGBO(99, 101, 105, 0.4),
