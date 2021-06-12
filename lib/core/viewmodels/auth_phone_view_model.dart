@@ -56,10 +56,10 @@ class AuthPhoneViewModel extends BaseModel with Validators {
                     ],
                   ),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("Confirm"),
-                      textColor: Colors.white,
-                      color: Colors.blue,
+                      //textColor: Colors.white,
+                      //color: Colors.blue,
                       onPressed: () async {
                         final smsCode = _codeController.text.trim();
                         PhoneAuthCredential credential =

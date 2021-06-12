@@ -48,16 +48,16 @@ class AuthPhoneView extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  child: FlatButton(
+                  child: TextButton(
                     child: Text("LOGIN"),
-                    textColor: Colors.white,
-                    padding: EdgeInsets.all(16),
+                    //textColor: Colors.white,
+                    //padding: EdgeInsets.all(16),
                     onPressed: () async {
                       final phone = _phoneController.text.trim();
                       await Provider.of<AuthPhoneViewModel>(context, listen: false)
                       .verifyPhoneNumber(phone);
                     },
-                    color: Colors.blue,
+                    //color: Colors.blue,
                   ),
                 )
               ],

@@ -51,10 +51,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.7.5
-  change_app_package_name: ^0.1.2
+  #flutter_launcher_icons: ^0.7.5
+  #change_app_package_name: ^0.1.2
   # Genera id para registrar en firestore
-  uuid: ^2.2.0
+  #uuid: ^2.2.0
 flutter_icons:
   android: "launcher_icon"
   ios: true

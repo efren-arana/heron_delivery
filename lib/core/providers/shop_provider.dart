@@ -17,7 +17,7 @@ class ShopProvider extends ChangeNotifier {
   ShopProvider() {
     //  this.getTopHeadlines();
 
-    this.categoryShops[this._selectedCategory] = new List();
+    this.categoryShops[this._selectedCategory] = [];
 
     this.getShopsByCategory(this._selectedCategory);
   }
@@ -46,7 +46,7 @@ class ShopProvider extends ChangeNotifier {
         return;
       }
     } else {
-      this.categoryShops[category] = List();
+      this.categoryShops[category] = [];
     }
 
     //Realizo la peticion

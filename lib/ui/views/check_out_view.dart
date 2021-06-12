@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heron_delivery/core/providers/cart_provider.dart';
 import 'package:heron_delivery/core/viewmodels/home_view_model.dart';
-import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
 
 import 'package:provider/provider.dart';
 
@@ -194,10 +193,10 @@ class _BottomAppBarSection extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      RaisedButton(
-                          color: (model.itemsInBasket)
-                              ? theme.getColorBlueHex
-                              : Color.fromRGBO(99, 101, 105, 0.4),
+                      ElevatedButton(
+                          //color: (model.itemsInBasket)
+                          //    ? theme.getColorBlueHex
+                          //    : Color.fromRGBO(99, 101, 105, 0.4),
                           onPressed: () {
                             if (model.itemsInBasket) {
                               homeViewModel.navigateToMakeOrdertView();

@@ -31,9 +31,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-
   Widget _loginForm(BuildContext context) {
-
     return Consumer<LoginViewModel>(
       builder: (context, model, child) => (model.busy)
           ? child
@@ -50,17 +48,15 @@ class _LoginViewState extends State<LoginView> {
                     height: _size.height * 0.5,
                     width: _size.width * 0.80,
                     margin: EdgeInsets.only(
-                      top: _size.height * 0.03,
-                      left: _size.width * 0.01,
-                      right: _size.width * 0.01,
-                      bottom: _size.height * 0.02
-                      ),
+                        top: _size.height * 0.03,
+                        left: _size.width * 0.01,
+                        right: _size.width * 0.01,
+                        bottom: _size.height * 0.02),
                     padding: EdgeInsets.only(
-                      top: _size.height * 0.01,
-                      left: _size.width * 0.01,
-                      right: _size.width * 0.01,
-                      bottom: _size.height * 0.01
-                    ),
+                        top: _size.height * 0.01,
+                        left: _size.width * 0.01,
+                        right: _size.width * 0.01,
+                        bottom: _size.height * 0.01),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5.0),
@@ -106,9 +102,7 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
             ),
-      child: Center(
-        child: loadProgress
-      ),
+      child: Center(child: loadProgress),
     );
   }
 
@@ -117,7 +111,7 @@ class _LoginViewState extends State<LoginView> {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: _size.width * 0.01,
-        ),
+      ),
       child: TextFormField(
         onSaved: (value) => _email = value,
         validator: model.validateEmail,
@@ -139,7 +133,7 @@ class _LoginViewState extends State<LoginView> {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: _size.width * 0.01,
-        ),
+      ),
       child: TextFormField(
         obscureText: !_visiblepwd,
         onSaved: (value) => _password = value,
@@ -163,22 +157,23 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _submitButton(LoginViewModel model) {
-    return RaisedButton(
+    final ButtonStyle style = ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      primary: (model.formValidated)
+          ? theme.getColorBlueHex
+          : Color.fromRGBO(99, 101, 105, 0.4),
+      elevation: 1.0,
+    );
+    return ElevatedButton(
+        style: style,
         child: Container(
           padding: EdgeInsets.symmetric(
-            horizontal: _size.width * 0.15, 
-            vertical: _size.height * 0.02
-            ),
+              horizontal: _size.width * 0.15, vertical: _size.height * 0.02),
           child: Text(
             'Log in',
             style: TextStyle(color: Colors.white),
           ),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 1.0,
-        color: (model.formValidated)
-            ? theme.getColorBlueHex
-            : Color.fromRGBO(99, 101, 105, 0.4),
         onPressed: () {
           if (model.formValidated) {
             //salva los valores de todos los campos del formulario
@@ -190,23 +185,25 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _facebooklButton(LoginViewModel model) {
-    return RaisedButton.icon(
-        textColor: Colors.white,
+    final ButtonStyle style = ElevatedButton.styleFrom(
+      textStyle: TextStyle(
+        color: Colors.white
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      primary: theme.facebookColor,
+      elevation: 7.0,
+    );
+    return ElevatedButton.icon(
+      style: style,
         icon: FaIcon(
           FontAwesomeIcons.facebook,
           color: Colors.white,
         ),
         label: Container(
           padding: EdgeInsets.symmetric(
-            horizontal: _size.width * 0.1, 
-            vertical: _size.height * 0.02
-            ),
+              horizontal: _size.width * 0.1, vertical: _size.height * 0.02),
           child: Center(child: Text('Continuar con Facebook')),
         ),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        elevation: 7.0,
-        color: theme.facebookColor,
         onPressed: () => model.loginFacebook());
   }
 

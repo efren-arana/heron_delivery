@@ -184,7 +184,7 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   Widget _submitButton(SignUpViewModel model) {
-    return RaisedButton(
+    return ElevatedButton(
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: _size.width * 0.15, 
@@ -195,11 +195,11 @@ class _SignUpViewState extends State<SignUpView> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 1.0,
-        color: (model.formValidated)
-            ? theme.getColorBlueHex
-            : Color.fromRGBO(99, 101, 105, 0.4),
+        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        //elevation: 1.0,
+        //color: (model.formValidated)
+        //    ? theme.getColorBlueHex
+        //    : Color.fromRGBO(99, 101, 105, 0.4),
         onPressed: () {
           if (model.formValidated) {
             //salva los valores de todos los campos del formulario

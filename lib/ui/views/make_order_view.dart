@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:heron_delivery/core/viewmodels/make_order_view_model.dart';
-import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
+//import 'package:heron_delivery/core/constants/theme/theme.dart' as theme;
 
 import 'package:provider/provider.dart';
 
@@ -86,7 +86,7 @@ class _MakeOrderViewState extends State<MakeOrderView> {
   }
 
   Widget _makeOrderButton(MakeOrderViewModel model) {
-    return RaisedButton(
+    return ElevatedButton(
         child: Container(
           padding: EdgeInsets.symmetric(
               horizontal: _size.width * 0.15, vertical: _size.height * 0.02),
@@ -95,11 +95,11 @@ class _MakeOrderViewState extends State<MakeOrderView> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 1.0,
-        color: (model.phoneNumberValidated)
-            ? theme.getColorBlueHex
-            : Color.fromRGBO(99, 101, 105, 0.4),
+        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        //elevation: 1.0,
+        //color: (model.phoneNumberValidated)
+        //    ? theme.getColorBlueHex
+        //    : Color.fromRGBO(99, 101, 105, 0.4),
         onPressed: () {
           if (model.phoneNumberValidated) {
             //salva los valores de todos los campos del formulario
